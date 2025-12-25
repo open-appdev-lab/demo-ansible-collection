@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # run-ansible-lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: lint
+  #     uses: ansible/ansible-lint@v25.12.2
+      #with:
+        # Arguments to be passed to ansible-lint command.
+        #args: # optional, default is 
+        # If false, this action will not setup python and will instead rely on the already installed python.
+        #setup_python: # optional, default is true
+        # The version of Python to use when setting up Python environment. Default is 3.14.
+        #python_version: # optional, default is 3.14
+        # The directory where to run ansible-lint from. Default is `github.workspace`.
+        #working_directory: # optional, default is 
+        # Path to the requirements YAML file to install role and collection dependencies.
+        #requirements_file: # optional, default is 
+        # (Internal use only) Expected return code from ansible-lint. Default is 0. Used for self-testing purposes.
+        #expected_return_code: # optional, default is 0
+        # The branch, tag, or commit to use for ansible-lint. Only recommended for use with composite actions where `GH_ACTION_REF` is set to the parent action version.
+        #gh_action_ref: # optional, default is 
+
+  ci:
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/main.yml@main
+    with:
+      environment: "staging"
+    secrets: inherit
