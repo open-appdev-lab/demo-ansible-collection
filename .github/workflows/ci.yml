@@ -13,8 +13,8 @@ jobs:
   #   - name: lint
   #     uses: ansible/ansible-lint@v25.12.2
       #with:
-        # Arguments to be passed to ansible-lint command.
         #args: # optional, default is 
+        # Arguments to be passed to ansible-lint command.
         # If false, this action will not setup python and will instead rely on the already installed python.
         #setup_python: # optional, default is true
         # The version of Python to use when setting up Python environment. Default is 3.14.
@@ -28,8 +28,10 @@ jobs:
         # The branch, tag, or commit to use for ansible-lint. Only recommended for use with composite actions where `GH_ACTION_REF` is set to the parent action version.
         #gh_action_ref: # optional, default is 
 
-  ci:
-    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/main.yml@main
-    with:
-      environment: "staging"
-    secrets: inherit
+  # ci:
+  #   uses: open-appdev-lab/ansible-collections-ci/.github/workflows/main.yml@main
+  #   with:
+  #     environment: "staging"
+  #   # secrets: inherit
+  demo:
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/demo.yml@main
