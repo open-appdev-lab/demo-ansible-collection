@@ -30,10 +30,10 @@ jobs:
         # The branch, tag, or commit to use for ansible-lint. Only recommended for use with composite actions where `GH_ACTION_REF` is set to the parent action version.
         #gh_action_ref: # optional, default is 
 
-  # ci:
-  #   uses: open-appdev-lab/ansible-collections-ci/.github/workflows/main.yml@beta
-  #   with:
-  #     environment: "staging"
+  ci:
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/main.yml@beta
+    with:
+      environment: "staging"
     # secrets: inherit
   demo:
     uses: open-appdev-lab/ansible-collections-ci/.github/workflows/demo.yml@beta
