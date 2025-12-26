@@ -1,6 +1,22 @@
 # CHANGELOG
 
 
+## v1.1.2 (2025-12-26)
+
+### Bug Fixes
+
+- Fix pyproject
+  ([`23a5653`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/23a56533469c86303c2c21c2399c8827df0393bf))
+
+- Fixes
+  ([`d2eb533`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/d2eb533a301cd8600d62e1ea30667e5df2a0a95f))
+
+### Documentation
+
+- Add docs
+  ([`702bf90`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/702bf900adfef9d8e26a7d6f3dbc39a7fe051794))
+
+
 ## v1.1.1 (2025-12-26)
 
 ### Documentation
