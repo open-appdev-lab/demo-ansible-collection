@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v1.1.4 (2025-12-26)
+
+### Bug Fixes
+
+- Fix build.sh
+  ([`e1266d1`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/e1266d13bcae307da3225c3b5f1a1c6a7e55f318))
+
+- Fix build.sh
+  ([`4c24a0f`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/4c24a0f24c96e751c8da2727c83e9346843a140c))
+
+
 ## v1.1.3 (2025-12-26)
 
 ### Bug Fixes
