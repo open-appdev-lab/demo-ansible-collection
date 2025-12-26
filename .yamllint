@@ -2,12 +2,12 @@
 extends: default
 
 yaml-files:
-  - '*.yaml'
-  - '*.yml'
-  - '.yamllint'
+  - "*.yaml"
+  - "*.yml"
+  - ".yamllint"
 
 ignore:
-  - .gitlab-ci.yml
+  # - .github/
   - .venv/
   - .ansible/
   - changelogs/.plugin-cache.yaml
@@ -71,4 +71,3 @@ rules:
     level: warning
   octal-values:
     forbid-implicit-octal: true
-...
