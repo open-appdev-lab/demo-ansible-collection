@@ -58,6 +58,6 @@ ignore_merge_commits = false
 # ignore_token_for_push = false
 # insecure = false
 
-# [tool.semantic_release.publish]
-# dist_glob_patterns = ["demo-*.tar.gz"]
-# upload_to_vcs_release = true
+[tool.semantic_release.publish]
+dist_glob_patterns = ["example-demo-*.tar.gz"]
+upload_to_vcs_release = true
