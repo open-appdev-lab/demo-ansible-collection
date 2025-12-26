@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.1.3 (2025-12-26)
+
+### Bug Fixes
+
+- Config
+  ([`fd5e0ee`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/fd5e0ee4f3675a0043ceb7c4657a2f5f2e1f88ad))
+
+
 ## v1.1.2 (2025-12-26)
 
 ### Bug Fixes
