@@ -9,7 +9,7 @@ SEMVER_EXTRA_ASSETS=(
   CHANGELOG.rst
 )
 
-PYTHON_DEPENDENCIES="distlib antsibull-changelog"
+PYTHON_DEPENDENCIES="distlib antsibull-changelog docsible"
 
 for dir in $(ls -d roles/*); do
   echo "Running docsible role generation against ${dir}"
