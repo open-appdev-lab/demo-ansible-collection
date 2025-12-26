@@ -11,6 +11,9 @@
 - Fix build.sh
   ([`4c24a0f`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/4c24a0f24c96e751c8da2727c83e9346843a140c))
 
+- Fix pipeline
+  ([`9c49ff5`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/9c49ff5be39bbe7976a403faed2c565aaf80b755))
+
 - Update pipeline
   ([`759205c`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/759205c7320eaca4a2404e5fea393c01c49a05ba))
 
