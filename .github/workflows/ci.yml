@@ -12,7 +12,7 @@ on:
 permissions:
   contents: read
 
-jobs:
+# jobs:
   # release:
   #   runs-on: ubuntu-latest
   #   concurrency:
@@ -85,10 +85,46 @@ jobs:
         # The branch, tag, or commit to use for ansible-lint. Only recommended for use with composite actions where `GH_ACTION_REF` is set to the parent action version.
         #gh_action_ref: # optional, default is 
 
-  ci:
-    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/main.yml@beta
-    with:
-      environment: "staging"
+  # ci:
+  #   uses: open-appdev-lab/ansible-collections-ci/.github/workflows/main.yml@beta
+  #   with:
+  #     environment: "staging"
     # secrets: inherit
   # demo:
   #   uses: open-appdev-lab/ansible-collections-ci/.github/workflows/demo.yml@beta
+
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements-ci.txt ]; then pip install -r requirements-ci.txt; fi
+
+    - name: Resolve release tag
+      id: next-version
+      run: |
+        NEXT_VERSION=$(semantic-release version --print-tag)" >> $GITHUB_OUTPUT
+
+    - name: Build Package
+      run: |
+        semantic-release version
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ansible-collection
+        path: example-demo-${{steps.next-version.outputs.NEXT_VERSION}}.tar.gz
+        retention-days: 5

@@ -9,7 +9,7 @@ SEMVER_EXTRA_ASSETS=(
   CHANGELOG.rst
 )
 
-PYTHON_DEPENDENCIES="distlib antsibull-changelog docsible"
+PYTHON_DEPENDENCIES="ansible-core distlib antsibull-changelog docsible"
 
 # Install extra python dependencies if defined
 if [ -n "${PYTHON_DEPENDENCIES}" ]; then
