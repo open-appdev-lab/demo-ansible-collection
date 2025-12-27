@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.3.2 (2025-12-27)
+
+### Bug Fixes
+
+- Add release and remove release from semantic-release
+  ([`15d5cbc`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/15d5cbcbe4f12008484be11260765a0b8c3ba3fb))
+
+
 ## v1.3.1 (2025-12-27)
 
 ### Bug Fixes
