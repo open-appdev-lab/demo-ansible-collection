@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.4.0 (2025-12-27)
+
+### Features
+
+- Add publish of asset
+  ([`b756030`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/b756030e7302250c91737429b10535549a4a7886))
+
+
 ## v1.3.5 (2025-12-27)
 
 ### Bug Fixes
