@@ -131,7 +131,13 @@ jobs:
         semantic-release version
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
+    - name: Publish assets
+      run: |
+        semantic-release publish
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     # - name: Upload Build Artifact
     #   uses: actions/upload-artifact@v4
     #   with:
@@ -139,10 +145,10 @@ jobs:
     #     path: example-demo-${{steps.next-version.outputs.NEXT_VERSION}}.tar.gz
     #     retention-days: 5
 
-    - name: Release
-      uses: softprops/action-gh-release@v2
-      # if: github.ref_type == 'tag'
-      with:
-        tag_name: ${{steps.next-version.outputs.NEXT_VERSION}}
-        files: |
-          example-demo-${{steps.next-version.outputs.NEXT_VERSION}}.tar.gz
+    # - name: Release
+    #   uses: softprops/action-gh-release@v2
+    #   # if: github.ref_type == 'tag'
+    #   with:
+    #     tag_name: ${{steps.next-version.outputs.NEXT_VERSION}}
+    #     files: |
+    #       example-demo-${{steps.next-version.outputs.NEXT_VERSION}}.tar.gz
