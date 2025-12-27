@@ -5,6 +5,9 @@
 
 ### Bug Fixes
 
+- Add token
+  ([`a8a3047`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/a8a3047e95a05c194c01284748181f4211b7f7cc))
+
 - Add write permission
   ([`84c20d9`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/84c20d91d4e676baf4fff267bff87adc911cd29c))
 
