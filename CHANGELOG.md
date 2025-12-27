@@ -24,6 +24,9 @@
 
 ### Features
 
+- Adding a feature
+  ([`c0be748`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/c0be748be720ffd62beed173d06ae2220ba3e326))
+
 - Major ci change
   ([`34955f7`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/34955f7b97c2ef0ad5643d2b43ec42af37da5ebc))
 
