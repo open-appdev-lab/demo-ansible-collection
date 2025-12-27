@@ -126,15 +126,22 @@ jobs:
     - name: Print next version
       run: echo "Building collection with version ${{ steps.next-version.outputs.NEXT_VERSION }}"
         
-    - name: Build Package
+    - name: Build collection
       run: |
-        semantic-release version
+        semantic-release version --no-vcs-release
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4
+    # - name: Upload Build Artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ansible-collection
+    #     path: example-demo-${{steps.next-version.outputs.NEXT_VERSION}}.tar.gz
+    #     retention-days: 5
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: github.ref_type == 'tag'
       with:
-        name: ansible-collection
-        path: example-demo-${{steps.next-version.outputs.NEXT_VERSION}}.tar.gz
-        retention-days: 5
+        files: |
+          example-demo-${{steps.next-version.outputs.NEXT_VERSION}}.tar.gz
