@@ -116,7 +116,7 @@ jobs:
     - name: Resolve release tag
       id: next-version
       run: |
-        NEXT_VERSION=$(semantic-release version --print-tag)" >> $GITHUB_OUTPUT
+        NEXT_VERSION="$(semantic-release version --print-tag)" >> $GITHUB_OUTPUT
 
     - name: Build Package
       run: |
