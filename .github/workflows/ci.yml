@@ -128,7 +128,7 @@ jobs:
         
     - name: Build collection
       run: |
-        semantic-release version --no-vcs-release
+        semantic-release version
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
