@@ -120,11 +120,18 @@ jobs:
       id: next-version
       run: |
         NEXT_VERSION="$(semantic-release version --print-tag)" >> $GITHUB_OUTPUT
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Print next version
+      run: echo "Building collection with version ${{ steps.next-version.outputs.next-version }}"
+        
     - name: Build Package
       run: |
         semantic-release version
-
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
