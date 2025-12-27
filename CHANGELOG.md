@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.3.4 (2025-12-27)
+
+### Bug Fixes
+
+- Remove logic for tag only
+  ([`e928fbb`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/e928fbbb9bf7243b527c4588acf05f83c3338d89))
+
+
 ## v1.3.3 (2025-12-27)
 
 ### Bug Fixes
