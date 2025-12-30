@@ -199,7 +199,6 @@ jobs:
       env:
         SARIF_REPORT_FULL_PATH: "./gl-code-quality-report.sarif"
       run: |
-        semantic-release version
         if [[ -f ${SARIF_FILE_PATH}.sarif ]]; then sarif codeclimate ${SARIF_FILE_PATH}.sarif || RETURN=$?; else echo "ERROR - File not found ${SARIF_FILE_PATH}.sarif"; exit 1; fi
         if [[ 0 == $RETURN ]]; then echo "Return code $RETURN matches expected return"; exit 0; fi
         exit $RETURN
