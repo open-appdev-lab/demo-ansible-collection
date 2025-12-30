@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.6.0 (2025-12-30)
+
+### Features
+
+- Add secret detection
+  ([`199c1b1`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/199c1b18c944f8aeca8af20aee1fe6035118f416))
+
+
 ## v1.5.0 (2025-12-30)
 
 ### Features
