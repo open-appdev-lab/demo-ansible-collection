@@ -104,17 +104,30 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+          fetch-depth: 50  # Important: Gitleaks needs history to scan commits
 
-    - name: Set up Python
+    - name: Secrets | custom_secret_detection (1/2)
+      id: custom_secret_detection
+      uses: ./.github/actions/secret-detection
+      # uses: gitleaks/gitleaks-action@v2
+      # env:
+      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # run: |
+      #   echo "TODO"
+    - name: Secrets | custom_secret_detection (2/2)
+      uses: actions/upload-artifact@v4
+      with:
+        name: custom_secret_detection
+        path: secret-detection-report.json
+        if-no-files-found: error
+
+    - name: Prepare | Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.13'
         cache: 'pip'
 
-    - name: Secrets | custom_secret_detection
-      id: custom_secret_detection
-      run: |
-        echo "TODO"
     - name: Prepare | install-dependencies
       id: install-dependencies
       run: |
@@ -132,20 +145,49 @@ jobs:
       id: job-ansible-validate-tokens
       run: |
         echo "TODO"
+  # image: $[[ inputs.opt-image ]]
+  # stage: $[[ inputs.opt-stage ]]
+  # tags: $[[ inputs.opt-ci-tags ]]
+  # script:
+  #   - echo "INFO Validate Automation Hub Certified Token"
+  #   - >
+  #     curl $[[ inputs.opt-validation-url ]]
+  #     -d grant_type=refresh_token -d client_id="$[[ inputs.opt-client-id ]]"
+  #     -d refresh_token="${ANSIBLE_GALAXY_SERVER_AUTOMATION_HUB_CERTIFIED_TOKEN}"
+  #     --fail --silent --show-error --output /dev/null
+  #   - echo "INFO Validate Automation Hub Validated Token"
+  #   - >
+  #     curl $[[ inputs.opt-validation-url ]]
+  #     -d grant_type=refresh_token -d client_id="$[[ inputs.opt-client-id ]]"
+  #     -d refresh_token="${ANSIBLE_GALAXY_SERVER_AUTOMATION_HUB_VALIDATED_TOKEN}"
+  #     --fail --silent --show-error --output /dev/null
 
     - name: Prepare | job-ansible-collection-install
       id: job-ansible-collection-install
       run: |
         echo "TODO"
+    # - ANSIBLE_COLLECTIONS_PATH=.ansible/collections
+    # - ansible-galaxy collection install --force -p .ansible/collections -r requirements-dev.yml
+    #   || RETURN=$?
+    # - |-
+    #   if [[ 0 == $RETURN ]]; then
+    #     echo "Return code $RETURN matches expected return"
+    #     exit 0
+    #   fi
+    # - exit $RETURN
 
     - name: Test | secret_detection
       id: secret_detection
+      # uses: gitleaks/gitleaks-action@v2
+      # env:
+      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       run: |
-        echo "TODO"
+        echo "TODO" # create report secret-detection-report.json
     - name: Test | automation-hub-verify-ansible-lint (1/2)
       id: automation-hub-verify-ansible-lint
       env:
-        SARIF_REPORT_FULL_PATH: "./gl-code-quality-report.sarif"
+        SARIF_REPORT_FULL_PATH: "./code-quality-report.sarif"
         LINT_ARGS: "--profile production"
       run: |
         if [[ "["tests/integration/", "tests/unit"]" != "" ]]; then
@@ -181,7 +223,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: automation-hub-verify-ansible-lint
-        path: gl-code-quality-report.sarif
+        path: code-quality-report.sarif
         if-no-files-found: error
 
     - name: Test | job-ansible-tox-sanity
@@ -197,7 +239,7 @@ jobs:
     - name: Report | job-ansible-codeclimate (1/2)
       id: job-ansible-codeclimate
       env:
-        SARIF_REPORT_FULL_PATH: "./gl-code-quality-report.sarif"
+        SARIF_REPORT_FULL_PATH: "./code-quality-report.sarif"
       run: |
         if [[ -f ${SARIF_REPORT_FULL_PATH} ]]; then sarif codeclimate ${SARIF_REPORT_FULL_PATH} || RETURN=$?; else echo "ERROR - File not found ${SARIF_REPORT_FULL_PATH}"; exit 1; fi
         if [[ 0 == $RETURN ]]; then echo "Return code $RETURN matches expected return"; exit 0; fi
@@ -206,7 +248,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: job-ansible-codeclimate
-        path: gl-code-quality-report.json
+        path: code-quality-report.json
         if-no-files-found: error
     - name: Release | job-semantic_release
       id: job-semantic_release
@@ -225,3 +267,34 @@ jobs:
       id: job-package-publisher-rh-automation-hub
       run: |
         echo "TODO"
+  # variables:
+  #   FILE_PATH_NAME: $[[ inputs.needs-file-path-name ]]
+  #   PACKAGE_VERSION: $[[ inputs.needs-package-version ]]
+  #   PROJECT_ID: $[[ inputs.opt-project-id ]]
+  #   PACKAGE_NAME: $[[ inputs.opt-package-name ]]
+  #   TOKEN_TYPE: $[[ inputs.opt-token-type ]]
+  #   TOKEN_VALUE: $[[ inputs.opt-token-value ]]
+  # script:
+  #   - |-
+  #     if [[ "${PACKAGE_VERSION}" == "" ]]; then
+  #       PACKAGE_VERSION=$(date +%Y-%m-%d-%H-%M-%S);
+  #     fi
+  #   - echo "File Path and Name=${FILE_PATH_NAME}"
+  #   - echo "Package Name=${PACKAGE_NAME} Package Version=${PACKAGE_VERSION} Project ID=${PROJECT_ID}"
+  #   - ls
+  #   - FILEPATH=$(dirname ${FILE_PATH_NAME} | head -1)
+  #   - ls ${FILEPATH}
+  #   - |-
+  #     if [ $(ls ${FILE_PATH_NAME} | wc -l) -gt 0 ]; then
+  #       for FILE in ${FILE_PATH_NAME}; do
+  #         echo -e "\nFile path/name=${FILE}";
+  #         FILE_NAME=$(basename ${FILE})
+  #         curl --fail-with-body --location \
+  #           --header "${TOKEN_TYPE}: ${TOKEN_VALUE}" \
+  #           --upload-file ${FILE} \
+  #           "${CI_API_V4_URL}/projects/${PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${PACKAGE_VERSION}/${FILE_NAME}";
+  #       done;
+  #     else
+  #       echo "ERROR: Expected at least one file to match ${FILE_PATH_NAME}";
+  #       exit 1;
+  #     fi

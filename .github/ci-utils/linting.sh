@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export SARIF_REPORT_FULL_PATH="./gl-code-quality-report.sarif"
+export SARIF_REPORT_FULL_PATH="./code-quality-report.sarif"
 export LINT_ARGS="--profile production"
 if [[ "["tests/integration/", "tests/unit"]" != "" ]]; then
     FLAG=" --exclude"
