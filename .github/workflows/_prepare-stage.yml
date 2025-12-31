@@ -14,21 +14,8 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
     steps:
     - uses: actions/checkout@v4
-
-    - name: Environment Debug
-      run: |
-        which python
-        python --version
-        which pip
-        pip list
-        echo "Current user: $(whoami)"
-        echo "Working dir: $(pwd)"
-        echo "PATH: $PATH"
-        echo "ENV: $(env)"
 
     - name: Prepare | job-semver-next
       id: job-semver-next
@@ -36,6 +23,7 @@ jobs:
         echo "NEXT_VERSION=$(semantic-release version --print-tag)" >> $GITHUB_OUTPUT
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
 
   job-ansible-validate-tokens:
     runs-on: ubuntu-latest
@@ -44,8 +32,6 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
     steps:
     - uses: actions/checkout@v4
 
@@ -77,8 +63,6 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
     steps:
     - uses: actions/checkout@v4
 

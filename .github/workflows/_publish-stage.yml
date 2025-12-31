@@ -15,17 +15,16 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
     steps:
     - uses: actions/checkout@v4
 
     - name: Publish | job-package-publisher-github
       id: job-package-publisher-github
+      env:
+        PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         semantic-release publish
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   job-package-publisher-rh-automation-hub:
     permissions:

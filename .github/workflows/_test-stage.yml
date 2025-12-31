@@ -33,8 +33,6 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
     steps:
     - uses: actions/checkout@v4
 
@@ -43,6 +41,7 @@ jobs:
       env:
         SARIF_REPORT_FULL_PATH: "./code-quality-report.sarif"
         LINT_ARGS: "--profile production"
+        PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
       run: |
         if [[ "["tests/integration/", "tests/unit"]" != "" ]]; then
           FLAG=" --exclude"
@@ -88,18 +87,17 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
     steps:
     - uses: actions/checkout@v4
 
 
     - name: Test | job-ansible-tox-sanity
       id: job-ansible-tox-sanity
+      env:
+        PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
       run: |
         tox --verbose --listenvs-all
         tox
-
   job-ansible-tox-integration:
     runs-on: ubuntu-latest
     container:
@@ -107,13 +105,13 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
     steps:
     - uses: actions/checkout@v4
 
     - name: Test | job-ansible-tox-integration
       id: job-ansible-tox-integration
+      env:
+        PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
       run: |
         tox --ansible --conf tox-ansible.ini list
         tox --ansible --conf tox-ansible.ini
