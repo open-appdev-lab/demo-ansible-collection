@@ -1,6 +1,28 @@
 # CHANGELOG
 
 
+## v1.7.0 (2025-12-31)
+
+### Bug Fixes
+
+- Download artifact
+  ([`ccea9bd`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/ccea9bd277b7d5868fb5135b48a6a86a7b1fd90c))
+
+- Fix issue with pipeline
+  ([`e7d96b6`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/e7d96b652520d843062d9ebad5623e276cce52e5))
+
+- Fix setup
+  ([`d679844`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/d6798448201ac1bba98a54d25c38d4b1d19ceeb4))
+
+- Minor fixes
+  ([`0d441ea`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/0d441ea3bc0049c8cbdec956f364667e9ac9cfa2))
+
+### Features
+
+- Move steps to workflows
+  ([`5f3c247`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/5f3c24757d72b9695b8d1f1d5383d8ca3e5cb869))
+
+
 ## v1.6.0 (2025-12-30)
 
 ### Features
