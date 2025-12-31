@@ -2,20 +2,17 @@ FROM registry.access.redhat.com/ubi10
 
 ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
-    APP_ROOT=/opt/app-root \
-    HOME=/opt/app-root/src
+    VIRTUAL_ENV=/opt/venv
 
-# /opt/app-root/bin - the main venv
-# /opt/app-root/src/bin - app-specific binaries
-# /opt/app-root/src/.local/bin - tools like pipenv
-ENV PATH=$APP_ROOT/bin:$HOME/bin:$HOME/.local/bin:$PATH
+ENV PATH=$VIRTUAL_ENV/bin:$HOME/bin:$HOME/.local/bin:$PATH
 
 # Ensure the virtual environment is active in interactive shells
-ENV BASH_ENV=${APP_ROOT}/bin/activate \
-    ENV=${APP_ROOT}/bin/activate \
-    PROMPT_COMMAND=". ${APP_ROOT}/bin/activate"
+ENV BASH_ENV=${VIRTUAL_ENV}/bin/activate \
+    ENV=${VIRTUAL_ENV}/bin/activate \
+    PROMPT_COMMAND=". ${VIRTUAL_ENV}/bin/activate"
 
-RUN INSTALL_PKGS="gcc python3 python3-devel" && \
+# glibc-langpack-en is needed to set locale to en_US and disable warning about it
+RUN INSTALL_PKGS="gcc python3 python3-devel glibc-langpack-en" && \
     dnf -y --setopt=tsflags=nodocs --setopt=install_weak_deps=0 install $INSTALL_PKGS && \
     dnf -y clean all --enablerepo='*'
 
@@ -23,8 +20,8 @@ RUN INSTALL_PKGS="gcc python3 python3-devel" && \
 #   potential conflicts with Python packages preinstalled in the main Python
 #   installation.
 RUN \
-    python3 -m venv ${APP_ROOT} && \
-    chown -R 1001:0 ${APP_ROOT}
+    python3 -m venv ${VIRTUAL_ENV} && \
+    chown -R 1001:0 ${VIRTUAL_ENV}
 
 USER 1001
 

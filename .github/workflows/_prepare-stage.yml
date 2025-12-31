@@ -30,8 +30,8 @@ jobs:
         echo "PATH: $PATH"
         echo "ENV: $(env)"
         echo "$(ls /opt/)"
-        echo "$(ls /opt/app-root/)"
-        echo "$(ls /opt/app-root/bin/)"
+        echo "$(ls /opt/venv)"
+        echo "$(ls /opt/venv/bin/)"
       # env:
       #   PATH: "/opt/app-root/bin:/opt/app-root/src/bin:/opt/app-root/src/.local/bin"
     - name: Prepare | job-semver-next
