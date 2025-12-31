@@ -26,6 +26,7 @@ jobs:
         echo "Current user: $(whoami)"
         echo "Working dir: $(pwd)"
         echo "PATH: $PATH"
+        echo "ENV: $(env)"
 
     - name: Prepare | job-semver-next
       id: job-semver-next
