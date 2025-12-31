@@ -17,6 +17,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Environment Debug
+      run: |
+        which python
+        python --version
+        which pip
+        pip list
+        echo "Current user: $(whoami)"
+        echo "Working dir: $(pwd)"
+
     - name: Prepare | job-semver-next
       id: job-semver-next
       run: |
