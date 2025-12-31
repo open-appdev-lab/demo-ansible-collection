@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/ubi10
 
 ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
-    VIRTUAL_ENV=/opt/venv
+    VIRTUAL_ENV=/opt-venv
 
 ENV PATH=$VIRTUAL_ENV/bin:$HOME/bin:$HOME/.local/bin:$PATH
 
