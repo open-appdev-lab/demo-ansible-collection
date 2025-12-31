@@ -17,20 +17,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Environment Debug before
+    - name: Environment Debug
       run: |
         which python
         echo "Current user: $(whoami)"
         echo "Working dir: $(pwd)"
         echo "PATH: $PATH"
         echo "ENV: $(env)"
-    - name: Environment Debug after
-      run: |
-        which python
-        echo "PATH: $PATH"
-        echo "ENV: $(env)"
-        echo "$(ls /opt-venv)"
-        echo "$(ls /opt-venv/bin/)"
+        echo "$(ls /opt)"
+        echo "$(ls /opt/venv)"
+        echo "$(ls /opt/venv/bin/)"
 
     - name: Prepare | job-semver-next
       id: job-semver-next
