@@ -25,6 +25,7 @@ jobs:
         pip list
         echo "Current user: $(whoami)"
         echo "Working dir: $(pwd)"
+        echo "PATH: $PATH"
 
     - name: Prepare | job-semver-next
       id: job-semver-next
