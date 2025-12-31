@@ -27,7 +27,10 @@ jobs:
         echo "$(ls /opt)"
         echo "$(ls /opt/venv)"
         echo "$(ls /opt/venv/bin/)"
-
+        echo "Checking /opt:"
+        ls -d /opt/*
+        echo "Checking /opt/venv (if it exists):"
+        ls -la /opt/venv || echo "/opt/venv not found"
     - name: Prepare | job-semver-next
       id: job-semver-next
       run: |
