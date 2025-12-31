@@ -96,207 +96,43 @@ permissions:
 
 
 jobs:
-  build-and-release:
-    runs-on: ubuntu-latest
+  secrets:
+    uses: ./.github/workflows/_secrets-stage.yml
 
-    permissions:
-      contents: write
+  prepare:
+    needs: secrets
+    uses: ./.github/workflows/_prepare-stage.yml
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-          fetch-depth: 50  # Important: Gitleaks needs history to scan commits
+  test:
+    needs: prepare
+    uses: ./.github/workflows/_test-stage.yml
 
-    - name: Secrets | custom_secret_detection (1/2)
-      id: custom_secret_detection
-      uses: ./.github/actions/secret-detection
-    - name: Secrets | custom_secret_detection (2/2)
-      uses: actions/upload-artifact@v4
-      if: always() && steps.custom_secret_detection.outcome != 'skipped'
-      with:
-        name: custom_secret_detection
-        path: secret-detection-report.json
-        if-no-files-found: error
+  report:
+    needs: test
+    uses: ./.github/workflows/_report-stage.yml
 
-    - name: Prepare | setup-python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.13'
-        cache: 'pip'
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: report
+    uses: ./.github/workflows/_release-stage.yml
 
-    - name: Prepare | install-dependencies
-      id: install-dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements-ci.txt ]; then pip install -r requirements-ci.txt; fi
-        if [ -f test-requirements.txt ]; then pip install -r test-requirements.txt; fi
+  publish:
+    if: github.ref == 'refs/heads/main'
+    needs: release
+    uses: ./.github/workflows/_publish-stage.yml
+    # Binds this job to the 'production' environment settings
+    # environment: 
+    #   name: production
+    #   url: https://my-prod.com
+    # -------------------------------------------------------
+    # CONCURRENCY GROUP
+    # -------------------------------------------------------
+    concurrency:
+      # Create a unique lock ID. Hardcoding 'production' ensures 
+      # NO other workflow can touch prod while this runs.
+      group: production-release
+      
+      # FALSE = "Wait in line" (Good for Deployments)
+      # TRUE  = "Kill the previous run" (Good for PR Builds)
+      cancel-in-progress: false
 
-    - name: Prepare | job-semver-next
-      id: job-semver-next
-      run: |
-        echo "NEXT_VERSION=$(semantic-release version --print-tag)" >> $GITHUB_OUTPUT
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Prepare | job-ansible-validate-tokens
-      id: job-ansible-validate-tokens
-      run: |
-        echo "TODO"
-  # image: $[[ inputs.opt-image ]]
-  # stage: $[[ inputs.opt-stage ]]
-  # tags: $[[ inputs.opt-ci-tags ]]
-  # script:
-  #   - echo "INFO Validate Automation Hub Certified Token"
-  #   - >
-  #     curl $[[ inputs.opt-validation-url ]]
-  #     -d grant_type=refresh_token -d client_id="$[[ inputs.opt-client-id ]]"
-  #     -d refresh_token="${ANSIBLE_GALAXY_SERVER_AUTOMATION_HUB_CERTIFIED_TOKEN}"
-  #     --fail --silent --show-error --output /dev/null
-  #   - echo "INFO Validate Automation Hub Validated Token"
-  #   - >
-  #     curl $[[ inputs.opt-validation-url ]]
-  #     -d grant_type=refresh_token -d client_id="$[[ inputs.opt-client-id ]]"
-  #     -d refresh_token="${ANSIBLE_GALAXY_SERVER_AUTOMATION_HUB_VALIDATED_TOKEN}"
-  #     --fail --silent --show-error --output /dev/null
-
-    - name: Prepare | job-ansible-collection-install
-      id: job-ansible-collection-install
-      run: |
-        echo "TODO"
-    # - ANSIBLE_COLLECTIONS_PATH=.ansible/collections
-    # - ansible-galaxy collection install --force -p .ansible/collections -r requirements-dev.yml
-    #   || RETURN=$?
-    # - |-
-    #   if [[ 0 == $RETURN ]]; then
-    #     echo "Return code $RETURN matches expected return"
-    #     exit 0
-    #   fi
-    # - exit $RETURN
-
-    - name: Test | secret_detection (1/2)
-      id: secret_detection
-      uses: ./.github/actions/secret-detection
-    - name: Test | secret_detection (2/2)
-      uses: actions/upload-artifact@v4
-      if: always() && steps.secret_detection.outcome != 'skipped'
-      with:
-        name: secret_detection
-        path: secret-detection-report.json
-        if-no-files-found: error
-
-    - name: Test | automation-hub-verify-ansible-lint (1/2)
-      id: automation-hub-verify-ansible-lint
-      env:
-        SARIF_REPORT_FULL_PATH: "./code-quality-report.sarif"
-        LINT_ARGS: "--profile production"
-      run: |
-        if [[ "["tests/integration/", "tests/unit"]" != "" ]]; then
-          FLAG=" --exclude"
-          EXCLUDE_ARGS=$(echo '["tests/integration/", "tests/unit"]' | tr -d '[],"')
-          set -- $EXCLUDE_ARGS
-          for item in "$@"; do
-            LINT_ARGS+=" $FLAG $item"
-          done
-        fi
-        if true ; then LINT_ARGS+=" --parseable"; fi
-        if true ; then LINT_ARGS+=" --force-color"; fi
-        if false ; then LINT_ARGS+=" --offline"; fi
-        if true ; then LINT_ARGS+=" --strict"; fi
-        if true ; then LINT_ARGS+=" --sarif-file ${SARIF_REPORT_FULL_PATH}"; fi
-        ansible-lint --version
-        echo "Running ansible-lint with the following parameters"
-        echo "${LINT_ARGS}"
-        echo "Switch directories to project directory ."
-        cd .
-        ansible-lint ${LINT_ARGS} || RETURN=$?
-        if true && ! [ -f ${SARIF_REPORT_FULL_PATH} ] ; then
-          echo "Code quality sarif report was requested but not generated, please check the logs."
-          RETURN=1${RETURN}
-        fi
-        if [[ 0 == $RETURN ]]; then
-          echo "Return code $RETURN matches expected return"
-          exit 0
-        fi
-        exit $RETURN
-
-    - name: Test | automation-hub-verify-ansible-lint (2/2)
-      uses: actions/upload-artifact@v4
-      if: always() && steps.automation-hub-verify-ansible-lint.outcome != 'skipped'
-      with:
-        name: automation-hub-verify-ansible-lint
-        path: code-quality-report.sarif
-        if-no-files-found: error
-
-    - name: Test | job-ansible-tox-sanity
-      id: job-ansible-tox-sanity
-      run: |
-        tox --verbose --listenvs-all
-        tox
-    - name: Test | job-ansible-tox-integration
-      id: job-ansible-tox-integration
-      run: |
-        tox --ansible --conf tox-ansible.ini list
-        tox --ansible --conf tox-ansible.ini
-    - name: Report | job-ansible-codeclimate (1/2)
-      id: job-ansible-codeclimate
-      env:
-        SARIF_REPORT_FULL_PATH: "./code-quality-report.sarif"
-      run: |
-        if [[ -f ${SARIF_REPORT_FULL_PATH} ]]; then sarif codeclimate ${SARIF_REPORT_FULL_PATH} || RETURN=$?; else echo "ERROR - File not found ${SARIF_REPORT_FULL_PATH}"; exit 1; fi
-        if [[ 0 == $RETURN ]]; then echo "Return code $RETURN matches expected return"; exit 0; fi
-        exit $RETURN
-    - name: Report | job-ansible-codeclimate  (2/2)
-      uses: actions/upload-artifact@v4
-      if: always() && steps.job-ansible-codeclimate.outcome != 'skipped'
-      with:
-        name: job-ansible-codeclimate
-        path: code-quality-report.json
-        if-no-files-found: error
-    - name: Release | job-semantic_release
-      id: job-semantic_release
-      run: |
-        semantic-release version
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Publish | job-package-publisher-github
-      id: job-package-publisher-github
-      run: |
-        semantic-release publish
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Publish | job-package-publisher-rh-automation-hub
-      id: job-package-publisher-rh-automation-hub
-      run: |
-        echo "TODO"
-  # variables:
-  #   FILE_PATH_NAME: $[[ inputs.needs-file-path-name ]]
-  #   PACKAGE_VERSION: $[[ inputs.needs-package-version ]]
-  #   PROJECT_ID: $[[ inputs.opt-project-id ]]
-  #   PACKAGE_NAME: $[[ inputs.opt-package-name ]]
-  #   TOKEN_TYPE: $[[ inputs.opt-token-type ]]
-  #   TOKEN_VALUE: $[[ inputs.opt-token-value ]]
-  # script:
-  #   - |-
-  #     if [[ "${PACKAGE_VERSION}" == "" ]]; then
-  #       PACKAGE_VERSION=$(date +%Y-%m-%d-%H-%M-%S);
-  #     fi
-  #   - echo "File Path and Name=${FILE_PATH_NAME}"
-  #   - echo "Package Name=${PACKAGE_NAME} Package Version=${PACKAGE_VERSION} Project ID=${PROJECT_ID}"
-  #   - ls
-  #   - FILEPATH=$(dirname ${FILE_PATH_NAME} | head -1)
-  #   - ls ${FILEPATH}
-  #   - |-
-  #     if [ $(ls ${FILE_PATH_NAME} | wc -l) -gt 0 ]; then
-  #       for FILE in ${FILE_PATH_NAME}; do
-  #         echo -e "\nFile path/name=${FILE}";
-  #         FILE_NAME=$(basename ${FILE})
-  #         curl --fail-with-body --location \
-  #           --header "${TOKEN_TYPE}: ${TOKEN_VALUE}" \
-  #           --upload-file ${FILE} \
-  #           "${CI_API_V4_URL}/projects/${PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${PACKAGE_VERSION}/${FILE_NAME}";
-  #       done;
-  #     else
-  #       echo "ERROR: Expected at least one file to match ${FILE_PATH_NAME}";
-  #       exit 1;
-  #     fi

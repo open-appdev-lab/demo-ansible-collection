@@ -1,0 +1,24 @@
+name: Report stage
+
+on:
+  workflow_call:
+
+jobs:
+  job-ansible-codeclimate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Report | job-ansible-codeclimate (1/2)
+      id: job-ansible-codeclimate
+      env:
+        SARIF_REPORT_FULL_PATH: "./code-quality-report.sarif"
+      run: |
+        if [[ -f ${SARIF_REPORT_FULL_PATH} ]]; then sarif codeclimate ${SARIF_REPORT_FULL_PATH} || RETURN=$?; else echo "ERROR - File not found ${SARIF_REPORT_FULL_PATH}"; exit 1; fi
+        if [[ 0 == $RETURN ]]; then echo "Return code $RETURN matches expected return"; exit 0; fi
+        exit $RETURN
+    - name: Report | job-ansible-codeclimate  (2/2)
+      uses: actions/upload-artifact@v4
+      if: always() && steps.job-ansible-codeclimate.outcome != 'skipped'
+      with:
+        name: job-ansible-codeclimate
+        path: code-quality-report.json
+        if-no-files-found: error

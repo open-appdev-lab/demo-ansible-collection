@@ -1,0 +1,17 @@
+name: Release stage
+
+on:
+  workflow_call:
+
+jobs:
+  job-semantic_release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Release | job-semantic_release
+      id: job-semantic_release
+      run: |
+        semantic-release version
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

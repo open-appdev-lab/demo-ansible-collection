@@ -1,0 +1,60 @@
+name: Publish stage
+
+on:
+  workflow_call:
+
+jobs:
+  job-package-publisher-github:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Publish | job-package-publisher-github
+      id: job-package-publisher-github
+      run: |
+        semantic-release publish
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  job-package-publisher-rh-automation-hub:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    # environment: ${{ inputs.environment }}
+    steps:
+    - name: Publish | job-package-publisher-rh-automation-hub
+      id: job-package-publisher-rh-automation-hub
+      run: |
+        echo "TODO"
+
+  # variables:
+  #   FILE_PATH_NAME: $[[ inputs.needs-file-path-name ]]
+  #   PACKAGE_VERSION: $[[ inputs.needs-package-version ]]
+  #   PROJECT_ID: $[[ inputs.opt-project-id ]]
+  #   PACKAGE_NAME: $[[ inputs.opt-package-name ]]
+  #   TOKEN_TYPE: $[[ inputs.opt-token-type ]]
+  #   TOKEN_VALUE: $[[ inputs.opt-token-value ]]
+  # script:
+  #   - |-
+  #     if [[ "${PACKAGE_VERSION}" == "" ]]; then
+  #       PACKAGE_VERSION=$(date +%Y-%m-%d-%H-%M-%S);
+  #     fi
+  #   - echo "File Path and Name=${FILE_PATH_NAME}"
+  #   - echo "Package Name=${PACKAGE_NAME} Package Version=${PACKAGE_VERSION} Project ID=${PROJECT_ID}"
+  #   - ls
+  #   - FILEPATH=$(dirname ${FILE_PATH_NAME} | head -1)
+  #   - ls ${FILEPATH}
+  #   - |-
+  #     if [ $(ls ${FILE_PATH_NAME} | wc -l) -gt 0 ]; then
+  #       for FILE in ${FILE_PATH_NAME}; do
+  #         echo -e "\nFile path/name=${FILE}";
+  #         FILE_NAME=$(basename ${FILE})
+  #         curl --fail-with-body --location \
+  #           --header "${TOKEN_TYPE}: ${TOKEN_VALUE}" \
+  #           --upload-file ${FILE} \
+  #           "${CI_API_V4_URL}/projects/${PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${PACKAGE_VERSION}/${FILE_NAME}";
+  #       done;
+  #     else
+  #       echo "ERROR: Expected at least one file to match ${FILE_PATH_NAME}";
+  #       exit 1;
+  #     fi
