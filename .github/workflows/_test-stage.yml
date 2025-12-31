@@ -7,6 +7,9 @@ jobs:
   secret_detection:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
+      with:
+          fetch-depth: 50  # Important: Gitleaks needs history to scan commits
     - name: Test | secret_detection (1/2)
       id: secret_detection
       uses: ./.github/actions/secret-detection
@@ -22,6 +25,20 @@ jobs:
   automation-hub-verify-ansible-lint:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup | setup-python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'pip'
+
+    - name: Setup | install-dependencies
+      id: install-dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements-ci.txt ]; then pip install -r requirements-ci.txt; fi
+        if [ -f test-requirements.txt ]; then pip install -r test-requirements.txt; fi
     - name: Test | automation-hub-verify-ansible-lint (1/2)
       id: automation-hub-verify-ansible-lint
       env:
@@ -68,6 +85,20 @@ jobs:
   job-ansible-tox-sanity:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup | setup-python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'pip'
+
+    - name: Setup | install-dependencies
+      id: install-dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements-ci.txt ]; then pip install -r requirements-ci.txt; fi
+        if [ -f test-requirements.txt ]; then pip install -r test-requirements.txt; fi
     - name: Test | job-ansible-tox-sanity
       id: job-ansible-tox-sanity
       run: |
@@ -77,6 +108,20 @@ jobs:
   job-ansible-tox-integration:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup | setup-python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'pip'
+
+    - name: Setup | install-dependencies
+      id: install-dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements-ci.txt ]; then pip install -r requirements-ci.txt; fi
+        if [ -f test-requirements.txt ]; then pip install -r test-requirements.txt; fi
     - name: Test | job-ansible-tox-integration
       id: job-ansible-tox-integration
       run: |
