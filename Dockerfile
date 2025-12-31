@@ -15,12 +15,9 @@ ENV BASH_ENV=${APP_ROOT}/bin/activate \
     ENV=${APP_ROOT}/bin/activate \
     PROMPT_COMMAND=". ${APP_ROOT}/bin/activate"
 
-# glibc-langpack-en is needed to set locale to en_US and disable warning about it
-RUN INSTALL_PKGS="gcc python3 python3-devel glibc-langpack-en" && \
+RUN INSTALL_PKGS="gcc python3 python3-devel" && \
     dnf -y --setopt=tsflags=nodocs --setopt=install_weak_deps=0 install $INSTALL_PKGS && \
     dnf -y clean all --enablerepo='*'
-
-WORKDIR ${HOME}
 
 # - Create a Python virtual environment for use by any application to avoid
 #   potential conflicts with Python packages preinstalled in the main Python
