@@ -10,7 +10,8 @@ jobs:
   job-semver-next:
     runs-on: ubuntu-latest
     container:
-      image: ${{ inputs.image }}
+      #image: ${{ inputs.image }}
+      image: ghcr.io/open-appdev-lab/demo-ansible-collection/ci-python-env:sha-bcdd6f4f2323580242eca09167aa55d78a6e7877
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
