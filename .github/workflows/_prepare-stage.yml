@@ -10,8 +10,8 @@ jobs:
   job-semver-next:
     runs-on: ubuntu-latest
     container:
-      #image: ${{ inputs.image }}
-      image: ghcr.io/open-appdev-lab/demo-ansible-collection/ci-python-env:sha-bcdd6f4f2323580242eca09167aa55d78a6e7877
+      image: ${{ inputs.image }}
+      #image: ghcr.io/open-appdev-lab/demo-ansible-collection/ci-python-env:sha-bcdd6f4f2323580242eca09167aa55d78a6e7877
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -25,11 +25,11 @@ jobs:
         echo "Working dir: $(pwd)"
         echo "PATH: $PATH"
         echo "ENV: $(env)"
-        echo "$(ls /opt/venv)"
-        echo "Checking /opt/venv:"
-        echo "Checking /opt/venv (if it exists):"
-        ls -la /opt/venv || echo "/opt/venv not found"
-        ls -d /opt/venv/*
+        echo "$(ls /opt/app-root)"
+        echo "Checking /opt/app-root:"
+        echo "Checking /opt/app-root (if it exists):"
+        ls -la /opt/app-root || echo "/opt/app-root not found"
+        ls -d /opt/app-root/*
     - name: Prepare | job-semver-next
       id: job-semver-next
       run: |
