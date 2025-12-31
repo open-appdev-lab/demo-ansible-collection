@@ -12,6 +12,7 @@ on:
 # default: least privileged permissions across all jobs
 permissions:
   contents: read
+  packages: read
 
 # jobs:
   # release:
