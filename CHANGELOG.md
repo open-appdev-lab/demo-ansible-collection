@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.9.0 (2026-01-01)
+
+### Features
+
+- New test
+  ([`670580e`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/670580e1cfc9508885f19a75ccfc3ec36ed9f2d1))
+
+
 ## v1.8.1 (2026-01-01)
 
 ### Bug Fixes
