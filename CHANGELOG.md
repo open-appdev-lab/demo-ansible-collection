@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.8.1 (2026-01-01)
+
+### Bug Fixes
+
+- Fix publish
+  ([`87e4bbb`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/87e4bbb0599e7daaa0af89fe22228f019af422ea))
+
+
 ## v1.8.0 (2026-01-01)
 
 ### Bug Fixes
