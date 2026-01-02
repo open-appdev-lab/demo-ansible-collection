@@ -66,6 +66,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Debug before - show local files before collection install
+      run: |
+        echo "ls -a ."
+        ls -a .
+
     - name: Prepare | job-ansible-collection-install (1/2)
       id: job-ansible-collection-install
       run: |
@@ -77,13 +82,10 @@ jobs:
         fi
         exit $RETURN
 
-    - name: Debug - show local ansible collections
-      id: debug
+    - name: Debug after - show local files after collection install
       run: |
         echo "ls -a ."
         ls -a .
-        echo "ls .ansible"
-        ls .ansible
 
     - name: Prepare | job-ansible-collection-install (2/2)
       uses: actions/upload-artifact@v4
