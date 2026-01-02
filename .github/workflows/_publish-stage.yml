@@ -20,8 +20,6 @@ on:
 jobs:
   job-package-publisher-github:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     container:
       image: ${{ inputs.image }}
       credentials:
