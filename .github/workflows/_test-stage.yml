@@ -42,15 +42,6 @@ jobs:
         name: local-ansible-collections
         path: .ansible
 
-    - name: Debug - show local ansible collections
-      id: debug
-      run: |
-        echo "ls -a ."
-        ls -a .
-        echo "ls .ansible"
-        ls .ansible
-
-
     - name: Test | automation-hub-verify-ansible-lint (1/2)
       id: automation-hub-verify-ansible-lint
       env:
