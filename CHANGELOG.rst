@@ -4,6 +4,9 @@ Demo Release Notes
 
 .. contents:: Topics
 
+v1.11.1
+=======
+
 v1.11.0
 =======
 

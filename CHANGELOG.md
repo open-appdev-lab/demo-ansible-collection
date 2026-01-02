@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.11.1 (2026-01-02)
+
+### Bug Fixes
+
+- Fix permissions
+  ([`1a68915`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/1a68915732cd98008154a25f1b5c9bef5e5cc4ef))
+
+
 ## v1.11.0 (2026-01-02)
 
 ### Features
