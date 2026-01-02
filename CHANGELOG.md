@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.9.5 (2026-01-02)
+
+### Bug Fixes
+
+- Fixes
+  ([`06b5ebd`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/06b5ebdda12c7134391f2fc25b8c3e3aef2a833b))
+
+
 ## v1.9.4 (2026-01-02)
 
 ### Bug Fixes
