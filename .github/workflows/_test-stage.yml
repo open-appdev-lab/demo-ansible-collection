@@ -40,11 +40,16 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: local-ansible-collections
+        path: .ansible
 
     - name: Debug - show local ansible collections
       id: debug
       run: |
+        echo "ls -a ."
+        ls -a .
+        echo "ls .ansible"
         ls .ansible
+
 
     - name: Test | automation-hub-verify-ansible-lint (1/2)
       id: automation-hub-verify-ansible-lint
@@ -103,6 +108,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: local-ansible-collections
+        path: .ansible
 
     - name: Test | job-ansible-tox-sanity
       id: job-ansible-tox-sanity
@@ -123,6 +129,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: local-ansible-collections
+        path: .ansible
 
     - name: Test | job-ansible-tox-integration
       id: job-ansible-tox-integration

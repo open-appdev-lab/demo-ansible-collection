@@ -80,6 +80,9 @@ jobs:
     - name: Debug - show local ansible collections
       id: debug
       run: |
+        echo "ls -a ."
+        ls -a .
+        echo "ls .ansible"
         ls .ansible
 
     - name: Prepare | job-ansible-collection-install (2/2)
@@ -87,6 +90,6 @@ jobs:
       if: always() && steps.job-ansible-collection-install.outcome != 'skipped'
       with:
         name: local-ansible-collections
-        path: .ansible
+        path: .ansible/
         if-no-files-found: error
         include-hidden-files: true
