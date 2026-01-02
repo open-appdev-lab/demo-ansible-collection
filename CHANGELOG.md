@@ -1,6 +1,9 @@
 # CHANGELOG
 
 
+## v1.9.2 (2026-01-02)
+
+
 ## v1.9.1 (2026-01-02)
 
 ### Bug Fixes
@@ -13,6 +16,9 @@
 
 - Correct download of .ansible
   ([`555ad95`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/555ad9533d40dacae89b0bec750b788647cd7021))
+
+- Show local files before and after
+  ([`c56df00`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/c56df00a816ecb95d1ebf35d6062a7558a805949))
 
 
 ## v1.9.0 (2026-01-01)

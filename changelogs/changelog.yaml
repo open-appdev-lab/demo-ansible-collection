@@ -35,3 +35,5 @@ releases:
     release_date: '2026-01-01'
   1.9.1:
     release_date: '2026-01-02'
+  1.9.2:
+    release_date: '2026-01-02'
