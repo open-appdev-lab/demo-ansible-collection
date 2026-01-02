@@ -36,6 +36,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Download ansible collections
+      uses: actions/download-artifact@v4
+      with:
+        name: .ansible
+
     - name: Test | automation-hub-verify-ansible-lint (1/2)
       id: automation-hub-verify-ansible-lint
       env:
@@ -89,6 +94,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Download ansible collections
+      uses: actions/download-artifact@v4
+      with:
+        name: .ansible
+
     - name: Test | job-ansible-tox-sanity
       id: job-ansible-tox-sanity
       run: |
@@ -103,6 +113,11 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v4
+
+    - name: Download ansible collections
+      uses: actions/download-artifact@v4
+      with:
+        name: .ansible
 
     - name: Test | job-ansible-tox-integration
       id: job-ansible-tox-integration
