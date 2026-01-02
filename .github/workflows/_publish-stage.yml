@@ -18,33 +18,10 @@ on:
         description: 'The Authentication Token for the Hub'
 
 jobs:
-  build-collection:
-    runs-on: ubuntu-latest
-    container:
-      image: ${{ inputs.image }}
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Publish | build-collection
-      id: build-collection
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git config --global --add safe.directory .
-        ./.github/ci-utils/build.sh
-    - name: Publish | upload-collection
-      uses: actions/upload-artifact@v4
-      if: always() && steps.build-collection.outcome != 'skipped'
-      with:
-        name: collection
-        path: "*.tar.gz"
-        if-no-files-found: error
   job-package-publisher-github:
     runs-on: ubuntu-latest
-    needs: build-collection
+    permissions:
+      contents: write
     container:
       image: ${{ inputs.image }}
       credentials:
@@ -55,7 +32,7 @@ jobs:
     - name: Publish | download-collection
       uses: actions/download-artifact@v4
       with:
-        name: collection
+        name: collection-artifact
 
     - name: Publish | job-package-publisher-github
       id: job-package-publisher-github
@@ -63,19 +40,16 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config --global --add safe.directory .
-        semantic-release publish
+        semantic-release -vv publish
 
   job-package-publisher-rh-automation-hub:
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
-    needs: build-collection
     # environment: ${{ inputs.environment }}
     steps:
     - name: Publish | download-collection
       uses: actions/download-artifact@v4
       with:
-        name: collection
+        name: collection-artifact
     - name: Publish | job-package-publisher-rh-automation-hub
       id: job-package-publisher-rh-automation-hub
       env:
