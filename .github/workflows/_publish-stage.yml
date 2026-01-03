@@ -29,6 +29,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-tags: true # Explicitly ensures tags are pulled
 
     - name: Publish | download-collection
       uses: actions/download-artifact@v4
