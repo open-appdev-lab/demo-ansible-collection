@@ -26,8 +26,8 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     outputs:
-      new_version: ${{ steps.semantic_release.outputs.version }}
-      released: ${{ steps.semantic_release.outputs.released }}
+      new_version: ${{ steps.set-output.outputs.version }}
+      released: ${{ steps.set-output.outputs.released }}
     steps:
     - uses: actions/checkout@v4
       with:
