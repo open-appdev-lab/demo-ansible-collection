@@ -11,7 +11,9 @@ on:
         type: string
         default: 'https://console.redhat.com/api/automation-hub/'
         description: 'The API URL for the Automation Hub'
-        
+      tag_name:
+        required: true
+        type: string
     secrets:
       automation_hub_token:
         required: true
@@ -27,18 +29,19 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v4
+
     - name: Publish | download-collection
       uses: actions/download-artifact@v4
       with:
-        name: collection-artifact
+        name: build-asset
 
     - name: Publish | job-package-publisher-github
       id: job-package-publisher-github
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git config --global --add safe.directory .
-        semantic-release -vv publish
+        #git config --global --add safe.directory .
+        semantic-release -vv publish --tag ${{ inputs.tag_name }}
 
   job-package-publisher-rh-automation-hub:
     runs-on: ubuntu-latest
@@ -47,7 +50,7 @@ jobs:
     - name: Publish | download-collection
       uses: actions/download-artifact@v4
       with:
-        name: collection-artifact
+        name: build-asset
     - name: Publish | job-package-publisher-rh-automation-hub
       id: job-package-publisher-rh-automation-hub
       env:

@@ -66,26 +66,6 @@ permissions:
   #   outputs:
   #     released: ${{ steps.release.outputs.released || 'false' }}
 
-  # run-ansible-lint:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: lint
-  #     uses: ansible/ansible-lint@v25.12.2
-      #with:
-        #args: # optional, default is 
-        # Arguments to be passed to ansible-lint command.
-        # If false, this action will not setup python and will instead rely on the already installed python.
-        #setup_python: # optional, default is true
-        # The version of Python to use when setting up Python environment. Default is 3.14.
-        #python_version: # optional, default is 3.14
-        # The directory where to run ansible-lint from. Default is `github.workspace`.
-        #working_directory: # optional, default is 
-        # Path to the requirements YAML file to install role and collection dependencies.
-        #requirements_file: # optional, default is 
-        # (Internal use only) Expected return code from ansible-lint. Default is 0. Used for self-testing purposes.
-        #expected_return_code: # optional, default is 0
-        # The branch, tag, or commit to use for ansible-lint. Only recommended for use with composite actions where `GH_ACTION_REF` is set to the parent action version.
-        #gh_action_ref: # optional, default is 
 
   # ci:
   #   uses: open-appdev-lab/ansible-collections-ci/.github/workflows/main.yml@beta
@@ -139,20 +119,20 @@ jobs:
     uses: ./.github/workflows/_secrets-stage.yml
 
   prepare:
-    needs: [ secrets, setup-environment ]
+    needs: [ setup-environment, secrets ]
     uses: ./.github/workflows/_prepare-stage.yml
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
     secrets:
       automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
   test:
-    needs: [ prepare, setup-environment ]
+    needs: [ setup-environment, prepare ]
     uses: ./.github/workflows/_test-stage.yml
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
 
   report:
-    needs: [ test, setup-environment ]
+    needs: [ setup-environment, test ]
     uses: ./.github/workflows/_report-stage.yml
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
@@ -162,35 +142,27 @@ jobs:
       contents: write
       packages: read
     if: github.ref == 'refs/heads/main'
-    needs: [ report, setup-environment ]
+    needs: [ setup-environment, report ]
     uses: ./.github/workflows/_release-stage.yml
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
+    concurrency:
+      group: release
+      cancel-in-progress: false
 
   publish:
     permissions:
       contents: write
       packages: read
-    if: github.ref == 'refs/heads/main'
-    needs: [ release, setup-environment ]
+    if: needs.release.outputs.released == 'true'
+    needs: [ setup-environment, release ]
     uses: ./.github/workflows/_publish-stage.yml
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
+      tag_name: v${{ needs.release.outputs.new_version }}
     secrets:
       automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
-    # Binds this job to the 'production' environment settings
-    # environment: 
-    #   name: production
-    #   url: https://my-prod.com
-    # -------------------------------------------------------
-    # CONCURRENCY GROUP
-    # -------------------------------------------------------
     concurrency:
-      # Create a unique lock ID. Hardcoding 'production' ensures 
-      # NO other workflow can touch prod while this runs.
-      group: production-release
-      
-      # FALSE = "Wait in line" (Good for Deployments)
-      # TRUE  = "Kill the previous run" (Good for PR Builds)
+      group: publish
       cancel-in-progress: false
 

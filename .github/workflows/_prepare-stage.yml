@@ -26,11 +26,12 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v4
-
+      with:
+        fetch-depth: 0
     - name: Prepare | job-semver-next
       id: job-semver-next
       run: |
-        git config --global --add safe.directory .
+        #git config --global --add safe.directory .
         echo "NEXT_VERSION=$(semantic-release version --print-tag)" >> $GITHUB_OUTPUT
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
