@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.14.0 (2026-01-03)
+
+### Features
+
+- Add reusable workflow for env setup
+  ([`6021e07`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/6021e07bf4d5c665fbbe5c6635cab0d571ee33cd))
+
+
 ## v1.13.0 (2026-01-03)
 
 ### Features
