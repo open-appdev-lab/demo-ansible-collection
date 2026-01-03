@@ -31,18 +31,18 @@ jobs:
   #   secrets: inherit
 
   setup-environment:
-    uses: ./.github/workflows/_setup_environment.yml
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/_setup_environment.yml@0.1.0
     permissions:
       contents: read
       packages: write # Required to push to GHCR
 
   secrets:
     needs: setup-environment
-    uses: ./.github/workflows/_secrets-stage.yml
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/_secrets-stage.yml@0.1.0
 
   prepare:
     needs: [ setup-environment, secrets ]
-    uses: ./.github/workflows/_prepare-stage.yml
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/_prepare-stage.yml@0.1.0
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
     secrets:
@@ -50,13 +50,13 @@ jobs:
 
   test:
     needs: [ setup-environment, prepare ]
-    uses: ./.github/workflows/_test-stage.yml
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/_test-stage.yml@0.1.0
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
 
   report:
     needs: [ setup-environment, test ]
-    uses: ./.github/workflows/_report-stage.yml
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/_report-stage.yml@0.1.0
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
 
@@ -66,7 +66,7 @@ jobs:
       packages: read
     if: github.ref == 'refs/heads/main'
     needs: [ setup-environment, report ]
-    uses: ./.github/workflows/_release-stage.yml
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/_release-stage.yml@0.1.0
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
       dry_run: ${{ github.event_name == 'pull_request' }}
@@ -77,7 +77,7 @@ jobs:
       packages: read
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.release.outputs.released == 'true'
     needs: [ setup-environment, release ]
-    uses: ./.github/workflows/_publish-stage.yml
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/_publish-stage.yml@0.1.0
     with:
       image: ${{ needs.setup-environment.outputs.image_tag }}
       tag_name: ${{ needs.release.outputs.new_version }}
