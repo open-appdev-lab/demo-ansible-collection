@@ -10,8 +10,9 @@ on:
 
 jobs:
   ci:
-    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@v1.0.14
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@v1.0.15
     permissions:
       contents: write
       packages: write
-    secrets: inherit
+    secrets:
+      automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
