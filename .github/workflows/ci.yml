@@ -10,7 +10,7 @@ on:
 
 jobs:
   ci:
-    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@v1.0.12
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@v1.0.13
     permissions:
       contents: write
       packages: write
