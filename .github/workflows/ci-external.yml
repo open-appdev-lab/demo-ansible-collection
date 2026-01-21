@@ -20,5 +20,8 @@ jobs:
     permissions:
       contents: write
       packages: write
+    with:
+      ref: ${{ github.event.pull_request.head.sha }}
+      repo: ${{ github.event.pull_request.head.repo.full_name }}
     secrets:
       automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}

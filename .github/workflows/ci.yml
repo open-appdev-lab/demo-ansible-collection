@@ -15,5 +15,8 @@ jobs:
     permissions:
       contents: write
       packages: write
+    with:
+      ref: ${{ github.sha }}
+      repo: ${{ github.repository }}
     secrets:
       automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
