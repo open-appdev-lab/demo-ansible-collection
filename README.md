@@ -1,5 +1,3 @@
 # Ansible Collection - example.demo
 
 Documentation for the collection.
-
-Something. Add more
