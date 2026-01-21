@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v2.0.1 (2026-01-21)
+
+### Bug Fixes
+
+- Check new release
+  ([`76de128`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/76de1284fbafc7f04a13dada60562f3bdda9a903))
+
+- Fix ansible-lint
+  ([`ce17019`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/ce17019d646f8eed913bddf501107465fa270640))
+
+
 ## v2.0.0 (2026-01-06)
 
 ### Features
