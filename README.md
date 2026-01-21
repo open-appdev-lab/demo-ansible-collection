@@ -2,4 +2,4 @@
 
 Documentation for the collection.
 
-Something. Add more
+Just used for showcase GH actions for CI of ansible collections.
