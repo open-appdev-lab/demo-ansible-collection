@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v2.0.2 (2026-01-21)
+
+### Bug Fixes
+
+- Create new release with internal PR
+  ([`c9d5dfe`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/c9d5dfe377309aa29d27223ba166dbb88ec8b92a))
+
+- Create new release with internal PR
+  ([`8bf7e12`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/8bf7e12a4c13e6bd9af6aac2341ad7a666d1ee32))
+
+
 ## v2.0.1 (2026-01-21)
 
 ### Bug Fixes
