@@ -1,17 +1,24 @@
 name: CI-External
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
     branches: [ "main" ]
 
 jobs:
-  # External: Uses same Repository secrets, but only AFTER you click approve
-  ci:
+  external-approval:
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    environment: external-ci  # Enforce manual gate
+    steps:
+      - run: echo "Approval received, starting CI..."
+
+  external-ci:
+    needs: external-approval
     if: github.event.pull_request.head.repo.full_name != github.repository
     uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@main
     permissions:
       contents: write
       packages: write
-    environment: external-ci  # Enforce manual gate
     secrets:
       automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
