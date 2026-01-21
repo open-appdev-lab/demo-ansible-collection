@@ -9,10 +9,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci:
+  # Internal: Uses Repository secrets immediately
+  internal-ci:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@main
     permissions:
       contents: write
       packages: write
+    secrets:
+      automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
+
+  # External: Uses same Repository secrets, but only AFTER you click approve
+  external-ci:
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@main
+    permissions:
+      contents: write
+      packages: write
+    environment: external-ci  # The gate stays here
     secrets:
       automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
