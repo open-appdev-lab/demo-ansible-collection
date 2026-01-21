@@ -10,8 +10,8 @@ on:
 jobs:
   ci:
     if: |
-      github.event_name == 'push' ||
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' ||
       (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
     uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@main
     permissions:
