@@ -4,6 +4,13 @@ galaxy_info:
   author: Lucas Burigo
   description: example role
   company: example
+  # platforms:
+  # - name: mac
+  #   versions: 1
+  # - name: linux
+  #   versions: 2
+  # - name: windows
+  #   versions: 3
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

@@ -8,7 +8,8 @@ config:
   code-block-style:                 # MD046
     style: "fenced"
   emphasis-style: false             # MD049
-  header-style:                     # MD003
+  fenced-code-language: false       # MD040
+  heading-style:                    # MD003
     style: "atx"
   hr-style:                         # MD035
     style: "---"
@@ -25,13 +26,13 @@ config:
   no-trailing-punctuation:          # MD026
     punctuation: ".,;:!。，；：！？"
   no-trailing-spaces: false         # MD009
-  reference-links-images: false     # MD052
-  ul-style:                         # MD004
-    style: "asterisk"
-
   # Disable this rule in the CLI project, because 1. 1. 1. 1. numbering
   # is rendered verbatim in CLI output
   ol-prefix: false                  # MD029
+  reference-links-images: false     # MD052
+  table-column-style: false         # MD060
+  ul-style:                         # MD004
+    style: "asterisk"
 
   # Keep this item last due to length
   proper-names:                     # MD044

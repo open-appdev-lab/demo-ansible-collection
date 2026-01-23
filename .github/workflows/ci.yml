@@ -22,6 +22,7 @@ jobs:
     permissions:
       contents: write
       packages: write
+      security-events: read
     with:
       ref: ${{ github.sha }}
       repo: ${{ github.repository }}

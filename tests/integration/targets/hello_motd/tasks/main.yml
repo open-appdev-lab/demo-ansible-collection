@@ -10,3 +10,4 @@
   ansible.builtin.assert:
     that:
       - msg == 'ansible-creator'
+...
