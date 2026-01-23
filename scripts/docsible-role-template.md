@@ -1,9 +1,9 @@
 ## {{ role.name }}
 
 ```
-Role belongs to infra/openshift_virtualization_migration
-Namespace - infra
-Collection - openshift_virtualization_migration
+Role belongs to
+Namespace - example
+Collection - demo
 ```
 
 {% if role.meta and role.meta.galaxy_info -%}
@@ -55,28 +55,29 @@ Description: Not available.
 {%- endif %}
 {%- endif %}
 
-{% macro render_arguments_list(arguments, level=0) %}
-{% for arg, details in arguments.items() %}
+{%- macro render_arguments_list(arguments, level=0) %}
+{%- for arg, details in arguments.items() %}
   {%- set indent = '  ' * level %}
-  {{ indent }}- **{{ arg }}**
-  {{ indent }}  - **Required**: {{ details.required | default('false') }}
-  {{ indent }}  - **Type**: {{ details.type }}
-  {{ indent }}  - **Default**: {{ details.default | default('none') }}
-  {{ indent }}  - **Description**: {{ details.description | default('No description provided') }}
+  {{ indent }}* **{{ arg }}**:
+  {{ indent }}  * **Required**: {{ details.required | default('false') }}
+  {{ indent }}  * **Type**: {{ details.type }}
+  {{ indent }}  * **Default**: {{ details.default | default('none') }}
+  {{ indent }}  * **Description**: {{ details.description | default('No description provided') }}
   {%- if details.choices is defined %}
-    {{ indent }}  - **Choices**:
-    {%- for choice in details.choices %}
-      {{ indent }}    - {{ choice }}
-    {%- endfor %}
+  {{ indent }}  * **Choices**:
+  {%- for choice in details.choices %}
+  {{ indent }}    * {{ choice }}
+  {%- endfor %}
   {%- endif %}
   {%- if details.aliases is defined %}
-    {{ indent }}  - **Aliases**:
-    {%- for alias in details.aliases %}
-      {{ indent }}    - {{ alias }}
-    {%- endfor %}
+  {{ indent }}  * **Aliases**:
+  {%- for alias in details.aliases %}
+  {{ indent }}    * {{ alias }}
+  {%- endfor %}
   {%- endif %}
   {%- if details.type == 'dict' and details.options %}
-    {{- render_arguments_list(details.options, level + 1) }}
+  {{ indent }}  * **Options**:
+    {{- render_arguments_list(details.options, level + 2) }}
   {%- elif details.type == 'list' and details.elements == 'dict' %}
     {%- for elem in details.default %}
       {%- if elem is mapping %}
@@ -84,22 +85,30 @@ Description: Not available.
       {%- endif %}
     {%- endfor %}
   {%- endif %}
-{% endfor %}
-{% endmacro %}
+{%- endfor %}
+{%- endmacro %}
 
 {%- if role.argument_specs %}
+
+### Argument Specifications
+
 <details>
-<summary><b>🧩 Argument Specifications in meta/argument_specs</b></summary>
-{% for section, specs in role.argument_specs.argument_specs.items() %}
+<summary><b>🧩 Argument Specifications in `meta/argument_specs`</b></summary>
+{%- for section, specs in role.argument_specs.argument_specs.items() %}
+
 #### Key: {{ section }}
-**Description**: {{ specs.description or specs.short_description or 'No description provided' }}
-{{ render_arguments_list(specs.options) }}
-{% endfor %}
+
+* **Description**: {{ specs.description or specs.short_description or 'No description provided' }}
+* **Options**:
+{{- render_arguments_list(specs.options) }}
+{%- endfor %}
+
 </details>
 {%- else %}
 {%- endif %}
 
-{%- if role.defaults|length > 0 -%}
+{%- if role.defaults|length > 0 %}
+
 ### Defaults
 
 **These are static variables with lower priority**
@@ -142,14 +151,17 @@ Description: Not available.
 {%- else %}
 {%- endif %}
 
-{%- if role.vars|length > 0 -%}
+{%- if role.vars|length > 0 %}
+
 ### Vars
 
 **These are variables with higher priority**
+
 {%- for varsfile in role.vars %}
+
 #### File: vars/{{ varsfile.file }}
 {# Cycle used for deciding to set Title and Required Column #}
-{% set ns = namespace(details_required = false, details_title = false, details_choices = false) %}
+{%- set ns = namespace(details_required = false, details_title = false, details_choices = false) %}
 | Var          | Type         | Value       |{% if ns.details_choices %}Choices    |{% endif %}{% if ns.details_required %}Required    |{% endif %}{% if ns.details_title %} Title       |{% endif %}
 |--------------|--------------|-------------|{% if ns.details_choices %}-------------|{% endif %}{% if ns.details_required %}-------------|{% endif %}{% if ns.details_title %}-------------|{% endif %}
 {%- for key, details in varsfile.data.items() %}
@@ -170,10 +182,10 @@ Description: Not available.
 
 ### Tasks
 
-{% set main_file = role.tasks | selectattr('file', 'equalto', 'main.yml') | list -%}
-{% set other_files = role.tasks | rejectattr('file', 'equalto', 'main.yml') | sort(attribute='file') | list -%}
-{% set sorted_task_files = main_file + other_files -%}
-{% for taskfile in sorted_task_files -%}
+{%- set main_file = role.tasks | selectattr('file', 'equalto', 'main.yml') | list %}
+{%- set other_files = role.tasks | rejectattr('file', 'equalto', 'main.yml') | sort(attribute='file') | list %}
+{%- set sorted_task_files = main_file + other_files %}
+{%- for taskfile in sorted_task_files %}
 
 #### File: tasks/{{ taskfile.file }}
 
@@ -190,22 +202,23 @@ Description: Not available.
 | {{ task.name | default('Unnamed Task') | replace("|", "¦") }} | `{{ task.module }}` | {{ 'True' if task.when else 'False' }} |{% if ns.comments_required %} {{ taskfile.comments | selectattr('task_name', 'equalto', task.name) | map(attribute='task_comments') | join('<br>') }} |{% endif %}
 {%- endfor %}
 
-{% endfor %}
+{%- endfor %}
 
-{%- if mermaid_code_per_file -%}
+{%- if mermaid_code_per_file %}
+
 ## Task Flow Graphs
 
-{% for task_file, mermaid_code in mermaid_code_per_file.items() %}
+{%- for task_file, mermaid_code in mermaid_code_per_file.items() %}
 
 ### Graph for {{ task_file }}
 
 ```mermaid
 {{ mermaid_code }}
 ```
-{% endfor %}
+{%- endfor %}
 {%- endif %}
 
-{%- if role.playbook.content -%}
+{%- if role.playbook.content %}
 
 ## Playbook
 
@@ -213,15 +226,16 @@ Description: Not available.
 {{ role.playbook.content }}
 ```
 {%- endif %}
-{%- if role.playbook.graph -%}
+{%- if role.playbook.graph %}
 
 ## Playbook graph
+
 ```mermaid
 {{ role.playbook.graph }}
 ```
 {%- endif %}
 
-{% if role.meta.galaxy_info -%}
+{%- if role.meta.galaxy_info %}
 
 ## Author Information
 

@@ -23,6 +23,7 @@ config:
     siblings_only: true
   no-emphasis-as-heading: false     # MD036
   no-inline-html: false             # MD033
+  no-space-in-emphasis: false       # MD037
   no-trailing-punctuation:          # MD026
     punctuation: ".,;:!。，；：！？"
   no-trailing-spaces: false         # MD009
