@@ -24,7 +24,7 @@ jobs:
       contents: write
       packages: write
       security-events: write
-      action: read
+      actions: read
     with:
       ref: ${{ github.event.pull_request.head.sha }}
       repo: ${{ github.event.pull_request.head.repo.full_name }}
