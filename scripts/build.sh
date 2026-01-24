@@ -9,7 +9,7 @@ SEMVER_EXTRA_ASSETS=(
   CHANGELOG.rst
 )
 
-PYTHON_DEPENDENCIES="ansible-core distlib antsibull-changelog docsible"
+PYTHON_DEPENDENCIES="ansible-core distlib antsibull-changelog docsible python-semantic-release"
 
 # Install extra python dependencies if defined
 if [ -n "${PYTHON_DEPENDENCIES}" ]; then
@@ -25,20 +25,11 @@ if [ -n "${PYTHON_DEPENDENCIES}" ]; then
   $PIP_EXEC install ${PYTHON_DEPENDENCIES}
 fi
 
-for dir in $(ls -d roles/*); do
-  echo "Running docsible role generation against ${dir}"
-  if [ -f ${dir}/docsible-role-template.md ]; then
-    DOCSIBLE_TEMPLATE="${dir}/docsible-role-template.md"
-  else
-    DOCSIBLE_TEMPLATE="./scripts/docsible-role-template.md"
-  fi
-  docsible --md-template ${DOCSIBLE_TEMPLATE} \
-    --role ${dir} --no-backup --append | tee -a collection-build.log
-  git add ${dir}/README.md
-done
+# Update documentation using Docsible
+. ./scripts/update-documentation.sh
 
-# Run antsibull-changelog release to update changelog and delete fragments
-antsibull-changelog release | tee -a collection-build.log
+# Update CHANGELOG.rst
+. ./scripts/update-changelog.sh
 
 for i in "${SEMVER_EXTRA_ASSETS[@]}"; do
   git add "$i" | tee -a collection-build.log
