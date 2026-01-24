@@ -8,9 +8,11 @@ This will not be overwritten by Docsible -->
 ## hello_motd
 
 ```
-Role belongs to infra/openshift_virtualization_migration
-Namespace - infra
-Collection - openshift_virtualization_migration
+Role belongs to example/demo
+Namespace - example
+Collection - demo
+Version - 2.0.3
+Repository - https://github.com/open-appdev-lab/demo-ansible-collection
 ```
 
 Description: example role
@@ -44,6 +46,27 @@ Description: example role
 | Generate greeting and store result | `ansible.builtin.set_fact` | False |
 | Store greeting in /tmp/motd | `ansible.builtin.copy` | False |
 
+## Task Flow Graphs
+
+### Graph for main.yml
+
+```mermaid
+flowchart TD
+Start
+classDef block stroke:#3498db,stroke-width:2px;
+classDef task stroke:#4b76bb,stroke-width:2px;
+classDef includeTasks stroke:#16a085,stroke-width:2px;
+classDef importTasks stroke:#34495e,stroke-width:2px;
+classDef includeRole stroke:#2980b9,stroke-width:2px;
+classDef importRole stroke:#699ba7,stroke-width:2px;
+classDef includeVars stroke:#8e44ad,stroke-width:2px;
+classDef rescue stroke:#665352,stroke-width:2px;
+
+  Start-->|Task| Generate_greeting_and_store_result0[generate greeting and store result]:::task
+  Generate_greeting_and_store_result0-->|Task| Store_greeting_in__tmp_motd1[store greeting in  tmp motd]:::task
+  Store_greeting_in__tmp_motd1-->End
+```
+
 ## Playbook
 
 ```yml
@@ -56,6 +79,13 @@ Description: example role
     - hello_motd
 ...
 
+```
+
+## Playbook graph
+
+```mermaid
+flowchart TD
+  hosts[localhost]-->|Role| hello_motd[hello motd]
 ```
 
 ## Author Information

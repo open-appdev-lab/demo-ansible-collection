@@ -1,15 +1,48 @@
-# Ansible Collection - example.demo
+<!-- DOCSIBLE START -->
+# 📃 Collection overview
 
-Documentation for the collection.
+**Namespace**: example
 
-Dummy change to trigger new release.
-Dummy change to trigger new release.
+**Name**: demo
 
-Dummy change to trigger new release with internal PR
+**Version**: 2.0.3
 
-Secondary commit while running
+**Authors**:
 
-Dummy change to trigger new release with internal PR2
+* Lucas Burigo <281664+burigolucas@users.noreply.github.com>
 
-Dummy change to trigger new release with external PR
-Dummy change to trigger new release with external PR2
+## Description
+
+demo collection to try out automation tooling
+
+## Metadata
+
+* **Repository**: [Repository](https://github.com/open-appdev-lab/demo-ansible-collection)
+
+* **Documentation**: [Documentation](https://github.com/open-appdev-lab/demo-ansible-collection)
+
+* **Homepage**: [Homepage](https://github.com/open-appdev-lab/demo-ansible-collection)
+
+* **Issues**: [Issues](https://github.com/open-appdev-lab/demo-ansible-collection)
+
+## Roles
+
+### [hello_motd](https://github.com/open-appdev-lab/demo-ansible-collection/tree/fix-changelog/roles/hello_motd)
+
+## Roles documentation
+
+### [hello_motd](https://github.com/open-appdev-lab/demo-ansible-collection/tree/fix-changelog/roles/hello_motd)
+
+Description: example role
+
+#### hello_motd Defaults
+
+**These are static variables with lower priority**
+
+#### hello_motd File: [defaults/main.yml](https://github.com/open-appdev-lab/demo-ansible-collection/tree/fix-changelog/roles/hello_motd/defaults/main.yml)
+
+| Var          | Type         | Value       |
+|--------------|--------------|-------------|
+| [hello_motd_friend_name](https://github.com/open-appdev-lab/demo-ansible-collection/blob/fix-changelog/roles/hello_motd/defaults/main.yml#L3)   | str   | `John Doe` |
+
+<!-- DOCSIBLE END -->
