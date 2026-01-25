@@ -5,7 +5,7 @@
 
 **Name**: demo
 
-**Version**: 2.0.3
+**Version**: 2.0.4
 
 **Authors**:
 
@@ -27,11 +27,11 @@ demo collection to try out automation tooling
 
 ## Roles
 
-### [hello_motd](https://github.com/open-appdev-lab/demo-ansible-collection/tree/fix-changelog/roles/hello_motd)
+### [hello_motd](https://github.com/open-appdev-lab/demo-ansible-collection/tree/main/roles/hello_motd)
 
 ## Roles documentation
 
-### [hello_motd](https://github.com/open-appdev-lab/demo-ansible-collection/tree/fix-changelog/roles/hello_motd)
+### [hello_motd](https://github.com/open-appdev-lab/demo-ansible-collection/tree/main/roles/hello_motd)
 
 Description: example role
 
@@ -39,10 +39,10 @@ Description: example role
 
 **These are static variables with lower priority**
 
-#### hello_motd File: [defaults/main.yml](https://github.com/open-appdev-lab/demo-ansible-collection/tree/fix-changelog/roles/hello_motd/defaults/main.yml)
+#### hello_motd File: [defaults/main.yml](https://github.com/open-appdev-lab/demo-ansible-collection/tree/main/roles/hello_motd/defaults/main.yml)
 
 | Var          | Type         | Value       |
 |--------------|--------------|-------------|
-| [hello_motd_friend_name](https://github.com/open-appdev-lab/demo-ansible-collection/blob/fix-changelog/roles/hello_motd/defaults/main.yml#L3)   | str   | `John Doe` |
+| [hello_motd_friend_name](https://github.com/open-appdev-lab/demo-ansible-collection/blob/main/roles/hello_motd/defaults/main.yml#L3)   | str   | `John Doe` |
 
 <!-- DOCSIBLE END -->

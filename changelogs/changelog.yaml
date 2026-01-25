@@ -81,3 +81,22 @@ releases:
     release_date: '2026-01-21'
   2.0.3:
     release_date: '2026-01-21'
+  2.0.4:
+    changes:
+      bugfixes:
+        - revise collection metadata
+      doc_changes:
+        - revise collection metadata and documentation
+      known_issues:
+        - Update README.md
+        - enforce environment approval
+        - fix concurrency group name
+        - remove check for environment
+    fragments:
+      - 2.0.4_docs_revisecollectionmetadataanddoc.yml
+      - 2.0.4_fix_revisecollectionmetadata.yml
+      - 2.0.4_unknown_UpdateREADMEmd.yml
+      - 2.0.4_unknown_enforceenvironmentapproval.yml
+      - 2.0.4_unknown_fixconcurrencygroupname.yml
+      - 2.0.4_unknown_removecheckforenvironment.yml
+    release_date: '2026-01-25'

@@ -4,6 +4,27 @@ Demo Release Notes
 
 .. contents:: Topics
 
+v2.0.4
+======
+
+Bugfixes
+--------
+
+- revise collection metadata
+
+Known Issues
+------------
+
+- Update README.md
+- enforce environment approval
+- fix concurrency group name
+- remove check for environment
+
+Documentation Changes
+---------------------
+
+- revise collection metadata and documentation
+
 v2.0.3
 ======
 

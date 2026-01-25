@@ -1,6 +1,36 @@
 # CHANGELOG
 
 
+## v2.0.4 (2026-01-25)
+
+### Bug Fixes
+
+- Revise collection metadata
+  ([`6bcf520`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/6bcf520dd9d220ba075d0e4ab887108a0ccfc23a))
+
+### Chores
+
+- Allow secury-events read, fix issues
+  ([`6740c82`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/6740c82746fe2d8261070705bc908fcda0510f09))
+
+- Fix docsible template
+  ([`4173cac`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/4173cac5861f1bc72b6b0243c227b3d441fd95e6))
+
+- Fix pipeline
+  ([`863d398`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/863d398853a127f361220b2e5508be6943ebe375))
+
+- Fix pipeline bug
+  ([`f6d9e06`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/f6d9e06c6b3c2a8e7b610c2ed61793346798fd7d))
+
+- Revise collection build scripts
+  ([`350e5d0`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/350e5d0ad63d57964f4f29b4db0cd751f0d4b4ad))
+
+### Documentation
+
+- Revise collection metadata and documentation
+  ([`34cb373`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/34cb3733e8dee54e025f88470275b544d7f3be79))
+
+
 ## v2.0.3 (2026-01-21)
 
 ### Bug Fixes

@@ -11,7 +11,7 @@ This will not be overwritten by Docsible -->
 Role belongs to example/demo
 Namespace - example
 Collection - demo
-Version - 2.0.3
+Version - 2.0.4
 Repository - https://github.com/open-appdev-lab/demo-ansible-collection
 ```
 
