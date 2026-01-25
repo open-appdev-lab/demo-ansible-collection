@@ -5,7 +5,7 @@
     hello_motd_greeting: "Hello {{ hello_motd_friend_name }}"
 
 - name: Store greeting in /tmp/motd
-  ansible.builtin.copy:
+  copy:
     content: "{{ hello_motd_greeting }}\n"
     dest: /tmp/motd
     mode: "0644"

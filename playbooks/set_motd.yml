@@ -1,12 +1,12 @@
 ---
-- name: Set MOTD
+- name: set MOTD
   hosts: localhost
   connection: local
   gather_facts: false
   become: true
   tasks:
-    - name: Invoke hello_motd role
-      ansible.builtin.include_role:
+    - name: invoke hello_motd role
+      include_role:
         name: example.demo.hello_motd
       vars:
         hello_motd_friend_name: "GitHub Action"
