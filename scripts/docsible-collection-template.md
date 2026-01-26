@@ -1,5 +1,3 @@
-# 📃 Collection overview
-
 **Namespace**: {{ collection.namespace }}
 
 **Name**: {{ collection.name }}
