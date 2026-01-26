@@ -9,5 +9,5 @@
       ansible.builtin.include_role:
         name: example.demo.hello_motd
       vars:
-        hello_motd_friend_name: "GitHub Action"
+        hello_motd_friend_name: "hello from demo playbook"
 ...
