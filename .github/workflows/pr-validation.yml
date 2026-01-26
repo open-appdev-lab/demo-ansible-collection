@@ -1,7 +1,8 @@
 name: PR Validation
 
 on:
-  # Trigger for internal PRs and Forks
+  pull_request:
+    branches: [ "main" ]
   pull_request_target:
     types: [opened, synchronize, reopened, edited]
     branches: [ "main" ]
