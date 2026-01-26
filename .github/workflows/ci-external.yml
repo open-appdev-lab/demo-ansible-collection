@@ -4,7 +4,8 @@ on:
   pull_request_target:
     types: [opened, synchronize, reopened]
     branches: [ "main" ]
-
+  merge_group:
+    types: [checks_requested]
 concurrency:
   group: external-${{ github.event.pull_request.number }}
   cancel-in-progress: true
@@ -30,3 +31,5 @@ jobs:
       repo: ${{ github.event.pull_request.head.repo.full_name }}
     secrets:
       automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
+      release_app_id:  ${{ secrets.RELEASE_APP_ID }}
+      release_app_private_key:  ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
