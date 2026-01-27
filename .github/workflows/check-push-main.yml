@@ -1,0 +1,30 @@
+name: Push to Protected Main
+on:
+  workflow_dispatch:
+
+jobs:
+  automated-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App Token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          persist-credentials: true
+
+      - name: Make changes and push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          echo "Automated update at $(date)" > update.txt
+          git add update.txt
+          git commit -m "chore: automated update [skip ci]"
+          git push origin main
