@@ -1,6 +1,20 @@
 # CHANGELOG
 
 
+## v2.0.10 (2026-01-27)
+
+### Bug Fixes
+
+- Clean up build ([#34](https://github.com/open-appdev-lab/demo-ansible-collection/pull/34),
+  [`07b0123`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/07b012370ef27a5ad3da00841266b026b4715a1c))
+
+### Performance Improvements
+
+- Run cron job every 5 min [skip ci]
+  ([#33](https://github.com/open-appdev-lab/demo-ansible-collection/pull/33),
+  [`035bcab`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/035bcabf11b6fd850cab5386d77dd66c6a32e948))
+
+
 ## v2.0.9 (2026-01-27)
 
 ### Bug Fixes
