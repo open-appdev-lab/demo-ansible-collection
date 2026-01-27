@@ -15,13 +15,13 @@ CONV_REGEX="^([a-z]+)(\([^)]+\))?!?: (.*)"
 
 echo "Processing commits from $LAST_VERSION to HEAD for release $NEXT_VERSION..."
 
-# 1. Get commits between the earlier version and current HEAD
+# Get commits between the earlier version and current HEAD
 COMMITS=$(git log "${LAST_VERSION}..HEAD" --pretty=format:"%s")
 
 # Create fragments directory if it doesn't exist
 mkdir -p changelogs/fragments
 
-# 2. Iterate through commits using a custom delimiter
+# Iterate through commits using a custom delimiter
 IFS=$'\n'
 for SUBJECT in $(echo "$COMMITS"); do
 
@@ -49,20 +49,22 @@ for SUBJECT in $(echo "$COMMITS"); do
     SAFE_NAME=$(echo "$SUBJECT" | tr -dc '[:alnum:]' | cut -c1-30)
     FILE_PATH="changelogs/fragments/${NEXT_VERSION}_${COMMIT_TYPE}_${SAFE_NAME}.yml"
 
-    # 3. Categorize based on Conventional Commits (see https://www.conventionalcommits.org/en/v1.0.0/#summary)
+    # Categorize based on Conventional Commits (see https://www.conventionalcommits.org/en/v1.0.0/#summary)
     if [[ "$COMMIT_TYPE" == *"!: "* ]]; then
         CATEGORY="breaking_changes"
-    elif [[ "$COMMIT_TYPE" == fix* ]]; then
-        CATEGORY="bugfixes"
     elif [[ "$COMMIT_TYPE" == feat* ]]; then
         CATEGORY="minor_changes"
+    elif [[ "$COMMIT_TYPE" == fix* ]]; then
+        CATEGORY="bugfixes"
     elif [[ "$COMMIT_TYPE" == docs* ]]; then
         CATEGORY="doc_changes"
-    else
+    elif [[ "$COMMIT_TYPE" == perf* ]]; then
         CATEGORY="known_issues"
+    else
+        continue
     fi
 
-    # 4. Write the fragment
+    # Write the fragment
     cat <<EOF > "$FILE_PATH"
 $CATEGORY:
   - "${SUBJECT}"
