@@ -100,3 +100,34 @@ releases:
       - 2.0.4_unknown_fixconcurrencygroupname.yml
       - 2.0.4_unknown_removecheckforenvironment.yml
     release_date: '2026-01-25'
+  2.0.5:
+    changes:
+      bugfixes:
+        - add adhoc changes
+        - set name in playbook (#26)
+        - set the name (#27)
+        - update output message in playbook (#22)
+      doc_changes:
+        - add adhoc changes
+        - add badge to README (#20)
+        - add contribution documentation (#21)
+        - add release_summary (#23)
+      known_issues:
+        - add adhoc changes
+        - add check push to main
+        - update pipelines (#19)
+      release_summary: revise documentation with batch PRs merge group
+    fragments:
+      - 2.0.5_ci_addcheckpushtomain.yml
+      - 2.0.5_ci_updatepipelines19.yml
+      - 2.0.5_docs_addbadgetoREADME20.yml
+      - 2.0.5_docs_addcontributiondocumentation21.yml
+      - 2.0.5_docs_addreleasesummary23.yml
+      - 2.0.5_fix_setnameinplaybook26.yml
+      - 2.0.5_fix_setthename27.yml
+      - 2.0.5_fix_updateoutputmessageinplaybook2.yml
+      - docs-notes.yml
+      - fixes-notes.yml
+      - isssues-notes.yml
+      - release-description.yml
+    release_date: '2026-01-27'

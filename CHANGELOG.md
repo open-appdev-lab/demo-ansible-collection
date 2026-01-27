@@ -1,6 +1,51 @@
 # CHANGELOG
 
 
+## v2.0.5 (2026-01-27)
+
+### Bug Fixes
+
+- Set name in playbook ([#26](https://github.com/open-appdev-lab/demo-ansible-collection/pull/26),
+  [`0382c1c`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/0382c1c645882427fc806ec8121ba56927a3a593))
+
+- Set the name ([#27](https://github.com/open-appdev-lab/demo-ansible-collection/pull/27),
+  [`a17b14d`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/a17b14dd8bcea6ba39b79cb3d07d4d4626460ba9))
+
+- Update output message in playbook
+  ([#22](https://github.com/open-appdev-lab/demo-ansible-collection/pull/22),
+  [`01c5ad3`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/01c5ad3512bce3c8e251f1167583465ffd999158))
+
+### Chores
+
+- Add fragments directory [skip ci]
+  ([`5027bd6`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/5027bd6b1a2b4b50b41f1511e0546f08b9b5e951))
+
+- Add license ([#24](https://github.com/open-appdev-lab/demo-ansible-collection/pull/24),
+  [`80bd685`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/80bd685890290a16956f164586479e9788d20f7a))
+
+- Automated update [skip ci]
+  ([`b25bc8b`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/b25bc8babc9a7971ac9c0dc1527b09a6631ab87f))
+
+- Check adhoc changelog fragment
+  ([#25](https://github.com/open-appdev-lab/demo-ansible-collection/pull/25),
+  [`8fba377`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/8fba3779ef66ff7b20b0ea5207cd4b335188a37a))
+
+- Clean up
+  ([`1ff3ccd`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/1ff3ccdae711520dc61bb4734639b95cc01f970e))
+
+### Documentation
+
+- Add badge to README ([#20](https://github.com/open-appdev-lab/demo-ansible-collection/pull/20),
+  [`a6874f4`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/a6874f4d419afb6da5859df1967cf732a45c4abe))
+
+- Add contribution documentation
+  ([#21](https://github.com/open-appdev-lab/demo-ansible-collection/pull/21),
+  [`3bfe9fc`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/3bfe9fc17501958da86375713acccde6ce12eca0))
+
+- Add release_summary ([#23](https://github.com/open-appdev-lab/demo-ansible-collection/pull/23),
+  [`af1afeb`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/af1afeb12c571645c306f0b6335a00df1f0c9a95))
+
+
 ## v2.0.4 (2026-01-25)
 
 ### Bug Fixes

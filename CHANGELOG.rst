@@ -4,6 +4,37 @@ Demo Release Notes
 
 .. contents:: Topics
 
+v2.0.5
+======
+
+Release Summary
+---------------
+
+revise documentation with batch PRs merge group
+
+Bugfixes
+--------
+
+- add adhoc changes
+- set name in playbook (#26)
+- set the name (#27)
+- update output message in playbook (#22)
+
+Known Issues
+------------
+
+- add adhoc changes
+- add check push to main
+- update pipelines (#19)
+
+Documentation Changes
+---------------------
+
+- add adhoc changes
+- add badge to README (#20)
+- add contribution documentation (#21)
+- add release_summary (#23)
+
 v2.0.4
 ======
 
