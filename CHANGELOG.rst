@@ -4,6 +4,14 @@ Demo Release Notes
 
 .. contents:: Topics
 
+v2.0.6
+======
+
+Bugfixes
+--------
+
+- update commit message
+
 v2.0.5
 ======
 

@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v2.0.6 (2026-01-27)
+
+### Bug Fixes
+
+- Update commit message
+  ([`fd8c69a`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/fd8c69a0a92ff1f0cdb4b59fdeb27b2a152d50f1))
+
+
 ## v2.0.5 (2026-01-27)
 
 ### Bug Fixes

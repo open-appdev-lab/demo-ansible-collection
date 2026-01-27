@@ -131,3 +131,10 @@ releases:
       - isssues-notes.yml
       - release-description.yml
     release_date: '2026-01-27'
+  2.0.6:
+    changes:
+      bugfixes:
+        - update commit message
+    fragments:
+      - 2.0.6_fix_updatecommitmessage.yml
+    release_date: '2026-01-27'
