@@ -4,6 +4,14 @@ Demo Release Notes
 
 .. contents:: Topics
 
+v2.0.9
+======
+
+Bugfixes
+--------
+
+- handle perf type in changelog (#32)
+
 v2.0.8
 ======
 

@@ -1,6 +1,15 @@
 # CHANGELOG
 
 
+## v2.0.9 (2026-01-27)
+
+### Bug Fixes
+
+- Handle perf type in changelog
+  ([#32](https://github.com/open-appdev-lab/demo-ansible-collection/pull/32),
+  [`3aae66a`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/3aae66a35d37422ae439b99b7e2b68f65817cd43))
+
+
 ## v2.0.8 (2026-01-27)
 
 ### Bug Fixes

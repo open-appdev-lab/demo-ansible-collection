@@ -155,3 +155,10 @@ releases:
       - 2.0.8_ci_fixdoubletriggering.yml
       - 2.0.8_fix_addfiletest31.yml
     release_date: '2026-01-27'
+  2.0.9:
+    changes:
+      bugfixes:
+        - handle perf type in changelog (#32)
+    fragments:
+      - 2.0.9_fix_handleperftypeinchangelog32.yml
+    release_date: '2026-01-27'
