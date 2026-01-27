@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v2.0.7 (2026-01-27)
+
+### Bug Fixes
+
+- Update workflows ([#28](https://github.com/open-appdev-lab/demo-ansible-collection/pull/28),
+  [`c25bcc8`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/c25bcc81a397e2c96768ed9303f5ef1c4b36681d))
+
+
 ## v2.0.6 (2026-01-27)
 
 ### Bug Fixes

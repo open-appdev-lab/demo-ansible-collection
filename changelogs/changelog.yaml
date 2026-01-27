@@ -138,3 +138,10 @@ releases:
     fragments:
       - 2.0.6_fix_updatecommitmessage.yml
     release_date: '2026-01-27'
+  2.0.7:
+    changes:
+      bugfixes:
+        - update workflows (#28)
+    fragments:
+      - 2.0.7_fix_updateworkflows28.yml
+    release_date: '2026-01-27'

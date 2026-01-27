@@ -4,6 +4,14 @@ Demo Release Notes
 
 .. contents:: Topics
 
+v2.0.7
+======
+
+Bugfixes
+--------
+
+- update workflows (#28)
+
 v2.0.6
 ======
 
