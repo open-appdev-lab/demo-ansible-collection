@@ -188,3 +188,4 @@ gl-code-quality-report.*
 
 # Don't include local .ansible folder
 .ansible/*
+README.generated.md

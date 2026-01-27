@@ -1,13 +1,13 @@
 #!/bin/bash -eu
 
-SEMVER_EXTRA_ASSETS=(
-  roles
-  playbooks
-  README.md
-  galaxy.yml
-  changelogs
-  CHANGELOG.rst
-)
+# SEMVER_EXTRA_ASSETS=(
+#   roles
+#   playbooks
+#   README.md
+#   galaxy.yml
+#   changelogs
+#   CHANGELOG.rst
+# )
 
 PYTHON_DEPENDENCIES="ansible-core distlib antsibull-changelog docsible python-semantic-release"
 
@@ -31,8 +31,10 @@ fi
 # Update CHANGELOG.rst
 . ./scripts/update-changelog.sh
 
-for i in "${SEMVER_EXTRA_ASSETS[@]}"; do
-  git add "$i" | tee -a collection-build.log
-done
+# for i in "${SEMVER_EXTRA_ASSETS[@]}"; do
+#   git add "$i" | tee -a collection-build.log
+# done
 
 ansible-galaxy collection build . | tee -a collection-build.log
+
+# git add .
