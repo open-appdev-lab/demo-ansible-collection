@@ -2,25 +2,53 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches: ["main"]
   merge_group:
     types: [checks_requested]
   workflow_dispatch:
 
-# Ensures internal and external PRs don't block main, and main merges run one-by-one.
 concurrency:
-  group: internal-${{ github.event.pull_request.number || github.ref }}
+  # Groups by PR number or branch ref. Unique enough to prevent collisions.
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.ref != format('refs/heads/{0}', github.event.repository.default_branch) }}
 
 jobs:
+  # Logic Gate: Determine if this is an external contributor
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      is_external: ${{ steps.check.outputs.external }}
+    steps:
+      - id: check
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request_target" && "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]]; then
+            echo "external=true" >> $GITHUB_OUTPUT
+          else
+            echo "external=false" >> $GITHUB_OUTPUT
+          fi
+
+  # Gatekeeper: Only runs for external PRs. Requires manual approval via Environment.
+  external-approval:
+    needs: setup
+    if: needs.setup.outputs.is_external == 'true'
+    runs-on: ubuntu-latest
+    environment: external-ci
+    steps:
+      - run: echo "External PR approved by environment gate."
+
+  # Unified CI: Runs for internal events OR after external approval
   ci:
+    needs: [setup, external-approval]
+    # Run if it's NOT external, OR if it IS external and the approval job finished
     if: |
-      github.event_name == 'workflow_dispatch' ||
-      github.event_name == 'merge_group' ||
-      github.event_name == 'push' ||
-      (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+      always() &&
+      (needs.setup.outputs.is_external == 'false' || needs.external-approval.result == 'success') &&
+      (needs.setup.result == 'success')
     uses: open-appdev-lab/ansible-collections-ci/.github/workflows/ci-ansible-collection.yml@main
     permissions:
       contents: write
@@ -28,8 +56,9 @@ jobs:
       security-events: write
       actions: read
     with:
-      ref: ${{ github.sha }}
-      repo: ${{ github.repository }}
+      # Use head.sha for PRs to get the actual commit, otherwise fallback to global sha
+      ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      repo: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
     secrets:
       automation_hub_token: ${{ secrets.AUTOMATION_HUB_TOKEN }}
       release_app_id:  ${{ secrets.RELEASE_APP_ID }}
