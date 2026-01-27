@@ -4,6 +4,19 @@ Demo Release Notes
 
 .. contents:: Topics
 
+v2.0.8
+======
+
+Bugfixes
+--------
+
+- add file test (#31)
+
+Known Issues
+------------
+
+- fix double triggering
+
 v2.0.7
 ======
 

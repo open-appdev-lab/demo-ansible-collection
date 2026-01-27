@@ -145,3 +145,13 @@ releases:
     fragments:
       - 2.0.7_fix_updateworkflows28.yml
     release_date: '2026-01-27'
+  2.0.8:
+    changes:
+      bugfixes:
+        - add file test (#31)
+      known_issues:
+        - fix double triggering
+    fragments:
+      - 2.0.8_ci_fixdoubletriggering.yml
+      - 2.0.8_fix_addfiletest31.yml
+    release_date: '2026-01-27'

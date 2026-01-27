@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v2.0.8 (2026-01-27)
+
+### Bug Fixes
+
+- Add file test ([#31](https://github.com/open-appdev-lab/demo-ansible-collection/pull/31),
+  [`c838917`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/c838917bbb60b8bbe314e80c9cd8ab15279de807))
+
+
 ## v2.0.7 (2026-01-27)
 
 ### Bug Fixes
