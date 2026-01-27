@@ -9,5 +9,5 @@
       ansible.builtin.include_role:
         name: example.demo.hello_motd
       vars:
-        hello_motd_friend_name: "lucas"
+        hello_motd_friend_name: "jane doe"
 ...
