@@ -11,9 +11,8 @@ on:
   merge_group:
     types: [checks_requested]
   schedule:
-    - cron: '0/5 * * * *'
     # Runs at 00:00 on the 1st and 15th of every month
-    #- cron: '0 0 1,15 * *'
+    - cron: '0 0 1,15 * *'
   workflow_dispatch:
 
 concurrency:
