@@ -77,6 +77,13 @@ releases:
     release_date: '2026-01-06'
   2.0.1:
     release_date: '2026-01-21'
+  2.0.13:
+    changes:
+      bugfixes:
+        - stage all changes during build (#37)
+    fragments:
+      - 2.0.13_fix_stageallchangesduringbuild37.yml
+    release_date: '2026-01-28'
   2.0.2:
     release_date: '2026-01-21'
   2.0.3:

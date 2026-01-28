@@ -1,6 +1,15 @@
 # CHANGELOG
 
 
+## v2.0.13 (2026-01-28)
+
+### Bug Fixes
+
+- Stage all changes during build
+  ([#37](https://github.com/open-appdev-lab/demo-ansible-collection/pull/37),
+  [`0ee628e`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/0ee628e2a6796071df532941bfc89a9e52006faf))
+
+
 ## v2.0.12 (2026-01-28)
 
 ### Bug Fixes

@@ -4,6 +4,14 @@ Demo Release Notes
 
 .. contents:: Topics
 
+v2.0.13
+=======
+
+Bugfixes
+--------
+
+- stage all changes during build (#37)
+
 v2.0.9
 ======
 
