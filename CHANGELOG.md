@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v2.0.11 (2026-01-28)
+
+### Documentation
+
+- Only document roles ([#35](https://github.com/open-appdev-lab/demo-ansible-collection/pull/35),
+  [`7b42028`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/7b42028185191652670d4a68d3984121d36e89db))
+
+
 ## v2.0.10 (2026-01-27)
 
 ### Bug Fixes
