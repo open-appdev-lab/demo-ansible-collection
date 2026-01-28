@@ -1,6 +1,15 @@
 # CHANGELOG
 
 
+## v2.0.12 (2026-01-28)
+
+### Bug Fixes
+
+- Revise documentation script
+  ([#36](https://github.com/open-appdev-lab/demo-ansible-collection/pull/36),
+  [`216a742`](https://github.com/open-appdev-lab/demo-ansible-collection/commit/216a7420bcfa17f23cb144551847f82ae23951c5))
+
+
 ## v2.0.11 (2026-01-28)
 
 ### Documentation
