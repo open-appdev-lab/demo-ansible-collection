@@ -12,10 +12,11 @@ Repository - {{ role.belongs_to_collection.repository }}
 
 {% if role.meta and role.meta.galaxy_info -%}
 Description: {{ role.meta.galaxy_info.description or 'Not available.' }}
-{% else %}
+{%- else %}
 Description: Not available.
 {%- endif %}
-{% if role.docsible -%}
+{%- if role.docsible %}
+
 | Field                | Value           |
 |--------------------- |-----------------|
 {%- if role.docsible.description %}
