@@ -12,6 +12,6 @@ export ANSIBLE_COLLECTIONS_PATH=.
 antsibull-changelog lint && echo "✅ All changelog fragments passed linting!" || exit 1
 
 # Run antsibull-changelog release to update changelog and delete fragments
-antsibull-changelog release -v --version $NEXT_VERSION || echo "❌ Error: Failed to update changelog" &&  exit 1
+antsibull-changelog release -v --version $NEXT_VERSION
 
 echo "✅ Changelog updated successfully!"

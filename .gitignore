@@ -184,7 +184,6 @@ cython_debug/
 
 # Code climate reports
 *.sarif
-gl-code-quality-report.*
 
 # Don't include local .ansible folder
 .ansible/*
