@@ -1,13 +1,26 @@
 #!/bin/bash -eu
 
-export COLLECTION_OUTPUT="README.generated.md"
+DOCSIBLE_ROLE_TEMPLATE="./scripts/docsible-role-template.md"
+DOCSIBLE_COLLECTION_TEMPLATE="./scripts/docsible-collection-template.md"
+
+# Document roles
+for dir in $(ls -d roles/*); do
+  echo "Running docsible role generation against ${dir}"
+  docsible --md-template ${DOCSIBLE_ROLE_TEMPLATE} \
+    --role ${dir} --no-backup --no-docsible --graph --append | tee -a collection-build.log
+  # git add ${dir}/README.md
+done
 
 # Document collection and roles
-echo "Running docsible collection generation"
-DOCSIBLE_COLLECTION_TEMPLATE="./scripts/docsible-collection-template.md"
-DOCSIBLE_ROLE_TEMPLATE="./scripts/docsible-role-template.md"
-docsible --collection . --no-backup --graph --append \
-  --md-collection-template ${DOCSIBLE_COLLECTION_TEMPLATE} \
-  --md-template ${DOCSIBLE_ROLE_TEMPLATE} \
-  --output $COLLECTION_OUTPUT \
-  | tee -a collection-build.log
+# echo "Running docsible collection generation"
+# DOCSIBLE_COLLECTION_TEMPLATE="./scripts/docsible-collection-template.md"
+# DOCSIBLE_ROLE_TEMPLATE="./scripts/docsible-role-template.md"
+# docsible --collection . --no-backup --no-docsible --graph --append \
+#   --md-collection-template ${DOCSIBLE_COLLECTION_TEMPLATE} \
+#   --md-template ${DOCSIBLE_ROLE_TEMPLATE} \
+#   | tee -a collection-build.log
+
+# git add README.md
+# for dir in $(ls -d roles/*); do
+#   git add ${dir}/README.md
+# done
