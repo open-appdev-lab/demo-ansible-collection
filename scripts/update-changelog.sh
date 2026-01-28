@@ -6,5 +6,8 @@ NEXT_VERSION=$(semantic-release version --print)
 # Create fragments based on commit messages
 . ./scripts/create-changelog-fragments.sh $LAST_VERSION $NEXT_VERSION
 
+# Lint fragments
+antsibull-changelog lint && echo "✅ All changelog fragments passed linting!" || exit 1
+
 # Run antsibull-changelog release to update changelog and delete fragments
-antsibull-changelog release --version $NEXT_VERSION | tee -a collection-build.log
+antsibull-changelog release -v --version $NEXT_VERSION || echo "❌ Error: Failed to update changelog" &&  exit 1
