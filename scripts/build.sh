@@ -37,4 +37,4 @@ fi
 
 ansible-galaxy collection build . | tee -a collection-build.log
 
-# git add .
+git add .
