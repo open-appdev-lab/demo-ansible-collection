@@ -37,4 +37,5 @@ fi
 
 ansible-galaxy collection build . | tee -a collection-build.log
 
-# git add .
+# Stage all changes
+git add .
